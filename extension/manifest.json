@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "RTL Free — إصلاح الاتجاه العربي الاحترافي",
   "short_name": "RTL Free",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "إصلاح اتجاه النصوص العربية تلقائيًا على أي موقع، بزر واحد، مع خطوط منتقاة وتحكّم كامل. تصميم: شؤون إسلامية.",
   "author": "شؤون إسلامية",
 
@@ -59,6 +59,14 @@
   },
 
   "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["force-open-shadow.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true,
+      "world": "MAIN"
+    },
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"],

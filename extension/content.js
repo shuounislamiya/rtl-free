@@ -350,6 +350,14 @@ ${hostPrefix}${rtlSel} ol {
       } else if (BLOCK_RTL_TAGS.has(tag) && RTL_REGEX.test(root.textContent || '')) {
         // عناصر كتليّة (عناوين، فقرات، ...) حتى لو كان النص داخل span أو عنصر داخلي
         applyRTL(root);
+      } else if (
+        // Custom Elements (ms-*, mat-*, ...) التي تحوي نصًا عربيًا
+        // نعطيها dir=auto ليُساعد على الإخراج الصحيح
+        tag && tag.includes('-') &&
+        RTL_REGEX.test(root.textContent || '') &&
+        !root.hasAttribute('dir')
+      ) {
+        root.setAttribute('dir', 'auto');
       }
     }
 
@@ -488,9 +496,29 @@ ${hostPrefix}${rtlSel} ol {
     pageScanned = true;
   }
 
+  // فحص دوري خفيف للمواقع التي تحمّل محتوى ديناميكيًا داخل Shadow DOM
+  // (AI Studio، Angular Material، Web Components)
+  let periodicTimer = null;
+  function startPeriodicRescan() {
+    if (periodicTimer) return;
+    periodicTimer = setInterval(() => {
+      if (!isActiveHere() || !pageScanned) return;
+      try {
+        injectIntoShadowRoots(document);
+      } catch (e) { /* تجاهل */ }
+    }, 2500);
+  }
+  function stopPeriodicRescan() {
+    if (periodicTimer) {
+      clearInterval(periodicTimer);
+      periodicTimer = null;
+    }
+  }
+
   async function init() {
     await loadSettings();
     stopObserver();
+    stopPeriodicRescan();
 
     if (isDisabledHere()) {
       removeStyles();
@@ -502,6 +530,7 @@ ${hostPrefix}${rtlSel} ol {
     const run = () => {
       fullScan();
       startObserver();
+      startPeriodicRescan();
     };
 
     if (document.readyState === 'loading') {
