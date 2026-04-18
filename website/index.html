@@ -3,15 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RTL Free — إصلاح الاتجاه العربي الاحترافي</title>
-  <meta name="description" content="إضافة مجانية واحترافية لإصلاح اتجاه النصوص العربية تلقائيًا على جميع المواقع، مع خطوط عربية منتقاة وكاشف ذكي لخطوط النظام. تصميم: شؤون إسلامية.">
-  <meta name="keywords" content="RTL, إضافة عربية, اتجاه النص, خطوط عربية, كروم, كلود, شات جي بي تي">
+
+  <!-- ============ الأساسيات ============ -->
+  <title>RTL Free — إضافة عربية مجانية لإصلاح اتجاه النصوص في ChatGPT و Gemini و Claude و AI Studio</title>
+  <meta name="description" content="إضافة متصفح عربية مجانية تُصلح اتجاه النصوص العربية (RTL) تلقائيًا على مواقع الذكاء الاصطناعي — ChatGPT و Gemini و Claude و AI Studio والمنتديات — بضغطة واحدة. مع خطوط عربية منتقاة وكاشف ذكي لخطوط النظام. مفتوحة المصدر، بدون تتبع، بدون إعلانات.">
+  <meta name="keywords" content="إضافة RTL, اتجاه النص العربي, إضافة عربية كروم, RTL extension, Arabic chrome extension, ChatGPT عربي, Gemini عربي, Claude عربي, AI Studio عربي, إصلاح اتجاه الكتابة, خطوط عربية, Tajawal, IBM Plex Sans Arabic, Amiri, Vazirmatn, إضافة شات جي بي تي, إضافة جيميناي, إضافة كلود, right to left browser extension, shuounislamiya, شؤون إسلامية, مفتوح المصدر">
+  <meta name="author" content="شؤون إسلامية (Shuoon Islamiya)">
   <meta name="theme-color" content="#be123c">
-  <meta property="og:title" content="RTL Free — إصلاح الاتجاه العربي الاحترافي">
-  <meta property="og:description" content="إضافة مجانية تُصلح اتجاه النصوص العربية تلقائيًا على جميع المواقع، بضغطة واحدة.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="googlebot" content="index, follow">
+  <link rel="canonical" href="https://rtlfree.shuounislamiya.org/">
+
+  <!-- ============ Open Graph (Facebook, LinkedIn, WhatsApp, Telegram) ============ -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://rtlfree.shuounislamiya.org">
-  <link rel="icon" type="image/png" href="icon.png">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="RTL Free">
+  <meta property="og:title" content="RTL Free — إضافة عربية مجانية لإصلاح اتجاه النصوص على ChatGPT و Gemini و Claude">
+  <meta property="og:description" content="إضافة مفتوحة المصدر تُصلح اتجاه النصوص العربية على مواقع الذكاء الاصطناعي — ChatGPT، Gemini، Claude، AI Studio — بنقرة واحدة. مع خطوط عربية منتقاة.">
+  <meta property="og:url" content="https://rtlfree.shuounislamiya.org/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/shuounislamiya/rtl-free/main/store-assets/promo-marquee.png">
+  <meta property="og:image:width" content="1400">
+  <meta property="og:image:height" content="560">
+  <meta property="og:image:alt" content="RTL Free — إصلاح الاتجاه العربي الاحترافي">
+
+  <!-- ============ Twitter / X ============ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RTL Free — إضافة عربية مجانية لإصلاح اتجاه النصوص على ChatGPT و Gemini و Claude">
+  <meta name="twitter:description" content="إضافة مفتوحة المصدر تُصلح اتجاه النصوص العربية على مواقع الذكاء الاصطناعي بنقرة واحدة.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/shuounislamiya/rtl-free/main/store-assets/promo-marquee.png">
+  <meta name="twitter:image:alt" content="RTL Free — إصلاح الاتجاه العربي">
+
+  <!-- ============ Favicon ============ -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ef4444'/%3E%3Cstop offset='100%25' stop-color='%23be123c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='12' fill='url(%23g)'/%3E%3Ctext x='24' y='34' text-anchor='middle' fill='white' font-size='28' font-weight='800' font-family='Arial'%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/shuounislamiya/rtl-free/main/extension/icons/icon128.png">
+
+  <!-- ============ Schema.org JSON-LD (الأهم لظهور متقدم في جوجل) ============ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://rtlfree.shuounislamiya.org/#software",
+        "name": "RTL Free",
+        "alternateName": ["إضافة RTL", "إضافة الاتجاه العربي"],
+        "description": "إضافة متصفح عربية مجانية ومفتوحة المصدر تُصلح اتجاه النصوص العربية على مواقع الذكاء الاصطناعي (ChatGPT, Gemini, Claude, AI Studio) والمنتديات تلقائيًا، مع خطوط عربية منتقاة وتحكّم كامل بالمظهر.",
+        "applicationCategory": "BrowserApplication",
+        "applicationSubCategory": "Productivity",
+        "operatingSystem": "Chrome, Edge, Brave, Opera, Chromium",
+        "softwareVersion": "1.1.3",
+        "url": "https://rtlfree.shuounislamiya.org/",
+        "downloadUrl": "https://github.com/shuounislamiya/rtl-free/raw/main/website/download/rtl-free-v1.1.zip",
+        "installUrl": "https://chromewebstore.google.com/detail/jfkjlncpkhahfdapjgfgcbkbfbcmlaam",
+        "screenshot": "https://raw.githubusercontent.com/shuounislamiya/rtl-free/main/store-assets/promo-marquee.png",
+        "license": "https://opensource.org/licenses/MIT",
+        "isAccessibleForFree": true,
+        "inLanguage": ["ar", "en"],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "author": {
+          "@type": "Organization",
+          "@id": "https://shuounislamiya.org/#org",
+          "name": "شؤون إسلامية",
+          "alternateName": "Shuoon Islamiya",
+          "url": "https://shuounislamiya.org/"
+        },
+        "publisher": { "@id": "https://shuounislamiya.org/#org" },
+        "featureList": [
+          "إصلاح اتجاه النصوص العربية تلقائيًا",
+          "خطوط عربية منتقاة: Tajawal, Amiri, IBM Plex Sans Arabic, Vazirmatn",
+          "كاشف ذكي لخطوط النظام",
+          "تحكّم بالحجم والتباعد والسُمك",
+          "اختصارات كيبورد قابلة للتخصيص",
+          "دعم Shadow DOM و Custom Elements",
+          "يعمل على ChatGPT, Gemini, Claude, AI Studio, NotebookLM"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://rtlfree.shuounislamiya.org/#website",
+        "url": "https://rtlfree.shuounislamiya.org/",
+        "name": "RTL Free",
+        "description": "إضافة عربية لإصلاح اتجاه النصوص",
+        "inLanguage": "ar",
+        "publisher": { "@id": "https://shuounislamiya.org/#org" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://shuounislamiya.org/#org",
+        "name": "شؤون إسلامية",
+        "alternateName": "Shuoon Islamiya",
+        "url": "https://shuounislamiya.org/",
+        "logo": "https://raw.githubusercontent.com/shuounislamiya/rtl-free/main/extension/icons/icon128.png",
+        "sameAs": [
+          "https://github.com/shuounislamiya/rtl-free",
+          "https://www.youtube.com/c/Shuounislamiya",
+          "https://twitter.com/Shuounislamiya",
+          "https://www.facebook.com/Shuounislamiya/",
+          "https://www.instagram.com/shuounislamiya/",
+          "https://t.me/ArabAffairsTV"
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- ============ الخطوط ============ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
