@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "RTL Free — إصلاح الاتجاه العربي الاحترافي",
   "short_name": "RTL Free",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "إصلاح اتجاه النصوص العربية تلقائيًا على أي موقع، بزر واحد، مع خطوط منتقاة وتحكّم كامل. تصميم: شؤون إسلامية.",
   "author": "شؤون إسلامية",
 
@@ -12,6 +12,29 @@
     "scripting",
     "contextMenus"
   ],
+
+  "commands": {
+    "toggle-site": {
+      "suggested_key": {
+        "default": "Alt+Shift+R",
+        "mac": "Alt+Shift+R"
+      },
+      "description": "تفعيل/تعطيل RTL Free على الموقع الحالي"
+    },
+    "cycle-font": {
+      "suggested_key": {
+        "default": "Alt+Shift+F",
+        "mac": "Alt+Shift+F"
+      },
+      "description": "تبديل الخط العربي"
+    },
+    "increase-size": {
+      "description": "تكبير الخط"
+    },
+    "decrease-size": {
+      "description": "تصغير الخط"
+    }
+  },
 
   "host_permissions": [
     "<all_urls>"

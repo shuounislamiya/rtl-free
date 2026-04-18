@@ -48,6 +48,15 @@
 
   const CODE_TAGS = new Set(['CODE', 'PRE', 'KBD', 'SAMP', 'TT', 'VAR']);
 
+  // عناصر كتليّة تستحق معاملة خاصة (عناوين، فقرات، قوائم، خلايا)
+  // حتى لو كان نصها العربي داخل <span> أو <a> أو عنصر داخلي
+  const BLOCK_RTL_TAGS = new Set([
+    'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
+    'P', 'LI', 'DT', 'DD', 'TD', 'TH',
+    'BLOCKQUOTE', 'FIGCAPTION', 'SUMMARY', 'DETAILS',
+    'LABEL', 'LEGEND', 'CAPTION'
+  ]);
+
   const GOOGLE_FONTS = new Set([
     'Tajawal', 'Amiri', 'IBM Plex Sans Arabic', 'Vazirmatn'
   ]);
@@ -130,7 +139,7 @@
     (document.head || document.documentElement).appendChild(link);
   }
 
-  function buildCSS() {
+  function buildCSS(options = {}) {
     const {
       fontSize, lineHeight, letterSpacing,
       fontWeight, smoothFonts, hideTashkeel, forceRTL,
@@ -142,53 +151,56 @@
     const fontRule = font ? `font-family: "${font}", "Segoe UI Arabic", "Tahoma", "Arial", system-ui, sans-serif !important;` : '';
     const scale = fontSize / 100;
 
+    // داخل Shadow DOM لا يوجد html، لذا نستخدم بادئة فارغة
+    // خارجها نُقيّد الأنماط بالعلامة على html (للأمان إذا تمّ التعطيل)
+    const hostPrefix = options.forShadow ? '' : `html[${DATA_ATTR}-active="1"] `;
+    const rtlSel = `[${DATA_ATTR}="rtl"]`;
+    const inputSel = `[${DATA_ATTR}-input="1"]`;
+
     let css = `
 /* RTL Free — أنماط مضافة */
 
-html[${DATA_ATTR}-active="1"] [${DATA_ATTR}="rtl"] {
+${hostPrefix}${rtlSel} {
   ${fontRule}
   line-height: ${lineHeight} !important;
   letter-spacing: ${letterSpacing}em !important;
   font-weight: ${fontWeight};
+  font-size: ${scale}em;
   ${smoothFonts ? '-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;' : ''}
 }
 
-html[${DATA_ATTR}-active="1"] [${DATA_ATTR}="rtl"] {
-  font-size: ${scale}em;
-}
-
-html[${DATA_ATTR}-active="1"] [${DATA_ATTR}-input="1"] {
+${hostPrefix}${inputSel} {
   unicode-bidi: plaintext !important;
   text-align: start !important;
   ${fontRule}
 }
 
 ${hideTashkeel ? `
-html[${DATA_ATTR}-active="1"] [${DATA_ATTR}="rtl"] {
+${hostPrefix}${rtlSel} {
   font-feature-settings: "mark" 0, "mkmk" 0;
 }
 ` : ''}
 
 ${forceRTL ? `
-html[${DATA_ATTR}-active="1"] body {
+${hostPrefix}body {
   direction: rtl !important;
 }
-html[${DATA_ATTR}-active="1"] body * :not([${DATA_ATTR}-ltr]) {
+${hostPrefix}body * :not([${DATA_ATTR}-ltr]) {
   unicode-bidi: plaintext;
 }
 ` : ''}
 
 ${!fixCode ? `
-html[${DATA_ATTR}-active="1"] code,
-html[${DATA_ATTR}-active="1"] pre,
-html[${DATA_ATTR}-active="1"] kbd,
-html[${DATA_ATTR}-active="1"] samp,
-html[${DATA_ATTR}-active="1"] tt,
-html[${DATA_ATTR}-active="1"] var,
-html[${DATA_ATTR}-active="1"] [class*="code"],
-html[${DATA_ATTR}-active="1"] [class*="Code"],
-html[${DATA_ATTR}-active="1"] .hljs,
-html[${DATA_ATTR}-active="1"] .prism-code {
+${hostPrefix}code,
+${hostPrefix}pre,
+${hostPrefix}kbd,
+${hostPrefix}samp,
+${hostPrefix}tt,
+${hostPrefix}var,
+${hostPrefix}[class*="code"],
+${hostPrefix}[class*="Code"],
+${hostPrefix}.hljs,
+${hostPrefix}.prism-code {
   direction: ltr !important;
   unicode-bidi: embed !important;
   text-align: left !important;
@@ -196,9 +208,9 @@ html[${DATA_ATTR}-active="1"] .prism-code {
 }
 ` : ''}
 
-/* معاينة أفضل للروابط والعناوين */
-html[${DATA_ATTR}-active="1"] [${DATA_ATTR}="rtl"] ul,
-html[${DATA_ATTR}-active="1"] [${DATA_ATTR}="rtl"] ol {
+/* حشوة أفضل للقوائم */
+${hostPrefix}${rtlSel} ul,
+${hostPrefix}${rtlSel} ol {
   padding-inline-start: 1.5em;
 }
 
@@ -332,8 +344,13 @@ html[${DATA_ATTR}-active="1"] [${DATA_ATTR}="rtl"] ol {
     if (tag && SKIP_TAGS.has(tag)) return;
 
     // معالجة العنصر نفسه
-    if (root.nodeType === Node.ELEMENT_NODE && hasDirectTextWithRTL(root)) {
-      applyRTL(root);
+    if (root.nodeType === Node.ELEMENT_NODE) {
+      if (hasDirectTextWithRTL(root)) {
+        applyRTL(root);
+      } else if (BLOCK_RTL_TAGS.has(tag) && RTL_REGEX.test(root.textContent || '')) {
+        // عناصر كتليّة (عناوين، فقرات، ...) حتى لو كان النص داخل span أو عنصر داخلي
+        applyRTL(root);
+      }
     }
 
     // معالجة حقول الإدخال
@@ -439,17 +456,20 @@ html[${DATA_ATTR}-active="1"] [${DATA_ATTR}="rtl"] ol {
   // ============================================================
 
   function injectIntoShadowRoots(root = document) {
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
-    let node;
-    while ((node = walker.nextNode())) {
-      if (node.shadowRoot) {
-        const shadow = node.shadowRoot;
-        if (!shadow.querySelector(`#${STYLE_ID}`)) {
-          const style = document.createElement('style');
+    // نبحث عن جميع العناصر التي لها shadowRoot مفتوح
+    const elements = root.querySelectorAll ? root.querySelectorAll('*') : [];
+    for (const el of elements) {
+      if (el.shadowRoot) {
+        const shadow = el.shadowRoot;
+        // نُعيد حقن الستايل في كل مرة لضمان تحديث الإعدادات
+        let style = shadow.getElementById(STYLE_ID);
+        if (!style) {
+          style = document.createElement('style');
           style.id = STYLE_ID;
-          style.textContent = buildCSS();
           shadow.appendChild(style);
         }
+        // بادئة shadow: لا تستخدم html[...] لأنه غير موجود داخل Shadow DOM
+        style.textContent = buildCSS({ forShadow: true });
         walkAndProcess(shadow);
         injectIntoShadowRoots(shadow);
       }

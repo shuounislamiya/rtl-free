@@ -171,17 +171,17 @@ function bindUI() {
     updatePreview();
   });
 
-  $('forceRTL').addEventListener('change', e => {
+  $('forceRTL')?.addEventListener('change', e => {
     settings.forceRTL = e.target.checked;
     saveSettings();
   });
 
-  $('hideTashkeel').addEventListener('change', e => {
+  $('hideTashkeel')?.addEventListener('change', e => {
     settings.hideTashkeel = e.target.checked;
     saveSettings();
   });
 
-  $('fixInputs').addEventListener('change', e => {
+  $('fixInputs')?.addEventListener('change', e => {
     settings.fixInputs = e.target.checked;
     saveSettings();
   });
@@ -195,20 +195,20 @@ function bindUI() {
     });
   });
 
-  $('btnRescan').addEventListener('click', async () => {
+  $('btnRescan')?.addEventListener('click', async () => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (tab?.id) chrome.tabs.sendMessage(tab.id, { type: 'rtlfree:rescan' }, () => {});
     flashButton($('btnRescan'));
   });
 
-  $('btnReset').addEventListener('click', async () => {
+  $('btnReset')?.addEventListener('click', async () => {
     if (!confirm('إعادة جميع الإعدادات إلى الافتراضية؟')) return;
     settings = { ...DEFAULTS };
     await new Promise(r => chrome.storage.sync.set({ [STORAGE_KEY]: settings }, r));
     renderAll();
   });
 
-  $('btnOptions').addEventListener('click', () => {
+  $('btnOptions')?.addEventListener('click', () => {
     chrome.runtime.openOptionsPage();
   });
 }

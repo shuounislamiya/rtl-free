@@ -135,6 +135,35 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 });
 
 // ============================================================
+// اختصارات الكيبورد
+// يمكن للمستخدم تعديلها من chrome://extensions/shortcuts
+// ============================================================
+
+chrome.commands.onCommand.addListener(async (command) => {
+  const host = await getActiveHost();
+  if (!host) return;
+
+  switch (command) {
+    case 'toggle-site': {
+      await toggleSite();
+      const settings = await getSettings();
+      const nowActive = (settings.enabledSites || []).some(d => host === d || host.endsWith('.' + d));
+      await showToast(nowActive ? `RTL Free مُفعَّل على ${host}` : `RTL Free مُعطَّل على ${host}`);
+      break;
+    }
+    case 'cycle-font':
+      await cycleFont();
+      break;
+    case 'increase-size':
+      await changeSize(10);
+      break;
+    case 'decrease-size':
+      await changeSize(-10);
+      break;
+  }
+});
+
+// ============================================================
 // الإجراءات
 // ============================================================
 
