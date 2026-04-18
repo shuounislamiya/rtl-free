@@ -61,13 +61,13 @@
    - Edge: `edge://extensions`
 2. فعّل **وضع المطوّر** (Developer Mode)
 3. اضغط **تحميل غير مُحزّم** (Load unpacked)
-4. اختر مجلد الإضافة
+4. اختر مجلد **`extension/`** داخل هذا المستودع (وليس الجذر)
 
 ### Firefox
 
 1. افتح `about:debugging#/runtime/this-firefox`
 2. اضغط **تحميل إضافة مؤقتة**
-3. اختر ملف `manifest.json`
+3. اختر ملف `extension/manifest.json`
 
 ---
 
@@ -84,14 +84,21 @@
 
 ```
 RTL/
-├── manifest.json          # تعريف Manifest V3
-├── content.js             # محرك الكشف والتطبيق
-├── injected.css           # أنماط أساسية مضافة
-├── background.js          # Service Worker (القائمة السياقية والشارة)
-├── popup.html/css/js      # نافذة التحكم السريعة
-├── options.html/css/js    # صفحة الإعدادات المتقدمة
-├── icons/                 # أيقونات حمراء بحرف R
+├── extension/             # ملفات الإضافة — حمّل هذا المجلد في كروم
+│   ├── manifest.json      # تعريف Manifest V3
+│   ├── content.js         # محرك الكشف والتطبيق
+│   ├── injected.css       # أنماط أساسية مضافة
+│   ├── background.js      # Service Worker (القائمة السياقية والشارة)
+│   ├── popup.html/css/js  # نافذة التحكم السريعة
+│   ├── options.html/css/js # صفحة الإعدادات المتقدمة
+│   └── icons/             # أيقونات حمراء بحرف R
+│
+├── website/               # صفحة الموقع (index.html) وملف التحميل
+├── privacy.html           # سياسة الخصوصية
+├── install.html           # دليل التثبيت اليدوي
+├── store-assets/          # لقطات متجر Chrome
 ├── build-icons.py         # أداة توليد الأيقونات
+├── LICENSE                # رخصة MIT
 └── README.md              # هذا الملف
 ```
 
