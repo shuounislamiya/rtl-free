@@ -5,6 +5,9 @@ _deploy/
 *.crx
 *.pem
 
+# Exception: keep the public download zip tracked
+!website/download/*.zip
+
 # Editor / IDE
 .vscode/
 .idea/

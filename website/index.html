@@ -272,6 +272,59 @@
 
     .btn svg { width: 20px; height: 20px; }
 
+    /* شارة "قيد المراجعة" على الأزرار */
+    .btn-pending {
+      position: relative;
+    }
+    .review-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      background: rgba(245, 158, 11, 0.18);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+    .review-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #fbbf24;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #fbbf24;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .btn-pending.btn-primary .review-badge {
+      background: rgba(190, 18, 60, 0.12);
+      color: var(--red-dark);
+      border-color: rgba(190, 18, 60, 0.28);
+    }
+    .btn-pending.btn-primary .review-badge::before {
+      background: var(--red-dark);
+      box-shadow: 0 0 8px rgba(190, 18, 60, 0.6);
+    }
+
+    /* ملاحظة أسفل الأزرار */
+    .hero-ctas-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 8px 16px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 999px;
+      color: rgba(255,255,255,0.85);
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+    .hero-ctas-note svg { width: 14px; height: 14px; color: #fbbf24; }
+
     .hero-credit {
       margin-top: 32px;
       display: inline-flex;
@@ -1134,6 +1187,455 @@
       position: relative;
     }
 
+    /* CTA الموقع الرئيسي */
+    .credit-main-cta {
+      margin-top: 36px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .btn-main-site {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: white;
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 12px 32px rgba(190, 18, 60, 0.3);
+      transition: all 0.25s ease;
+    }
+    .btn-main-site:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 42px rgba(190, 18, 60, 0.42);
+    }
+    .btn-main-site svg {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.25s ease;
+    }
+    .btn-main-site:hover svg { transform: translateX(-4px); }
+
+    /* فواصل */
+    .credit-divider {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 36px auto 20px;
+      max-width: 360px;
+      color: var(--ink-dim);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      position: relative;
+    }
+    .credit-divider::before,
+    .credit-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(190, 18, 60, 0.25), transparent);
+    }
+
+    /* شبكة أيقونات التواصل */
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .social-link {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      color: var(--ink-muted);
+      border: 1px solid rgba(190, 18, 60, 0.12);
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.28s cubic-bezier(.2,.8,.2,1);
+      position: relative;
+    }
+    .social-link svg { width: 22px; height: 22px; transition: inherit; }
+    .social-link:hover {
+      transform: translateY(-4px);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    }
+    .social-link:hover svg { transform: scale(1.1); }
+
+    .social-link[data-brand="youtube"]:hover { background: #FF0000; }
+    .social-link[data-brand="twitter"]:hover { background: #000; }
+    .social-link[data-brand="facebook"]:hover { background: #1877F2; }
+    .social-link[data-brand="instagram"]:hover {
+      background: linear-gradient(135deg, #F58529 0%, #DD2A7B 40%, #8134AF 70%, #515BD4 100%);
+    }
+    .social-link[data-brand="telegram"]:hover { background: #26A5E4; }
+    .social-link[data-brand="soundcloud"]:hover { background: #FF5500; }
+    .social-link[data-brand="patreon"]:hover { background: #FF424D; }
+
+    /* أزرار التواصل المباشر */
+    .contact-direct {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 4px;
+      position: relative;
+    }
+    .contact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 20px;
+      background: var(--cream);
+      color: var(--ink-soft);
+      border: 1px solid rgba(190, 18, 60, 0.12);
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.22s ease;
+    }
+    .contact-chip:hover {
+      border-color: var(--red-dark);
+      color: var(--red-dark);
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .contact-chip svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .contact-chip code {
+      direction: ltr;
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+      color: inherit;
+      background: transparent;
+      padding: 0;
+    }
+
+    @media (max-width: 520px) {
+      .credit-wrap { padding: 48px 24px; }
+      .credit-wrap h2 { font-size: 26px; }
+      .social-link { width: 44px; height: 44px; border-radius: 12px; }
+      .social-link svg { width: 19px; height: 19px; }
+      .contact-chip { font-size: 13px; padding: 10px 16px; }
+      .btn-main-site { font-size: 15px; padding: 14px 26px; }
+    }
+
+    /* ====================================================
+       مفتوح المصدر — GitHub
+    ==================================================== */
+    .open-source {
+      background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .open-source::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(190, 18, 60, 0.06), transparent 70%);
+      pointer-events: none;
+    }
+    .open-source::after {
+      content: '';
+      position: absolute;
+      bottom: -120px;
+      left: -100px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.05), transparent 70%);
+      pointer-events: none;
+    }
+
+    .oss-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 56px;
+      align-items: center;
+      margin-top: 60px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* نافذة الكود الداكنة */
+    .oss-code-window {
+      background: #0d1117;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(10, 5, 5, 0.35), 0 0 0 1px rgba(255,255,255,0.04);
+      font-family: 'JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
+      direction: ltr;
+      text-align: left;
+      position: relative;
+      transform: perspective(1200px) rotateY(3deg) rotateX(1deg);
+      transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
+    }
+    .oss-code-window:hover {
+      transform: perspective(1200px) rotateY(0deg) rotateX(0deg) translateY(-4px);
+    }
+
+    .oss-code-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 18px;
+      background: #161b22;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .oss-code-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .oss-code-dot.r { background: #ff5f57; }
+    .oss-code-dot.y { background: #febc2e; }
+    .oss-code-dot.g { background: #28c840; }
+    .oss-code-file {
+      margin-left: 14px;
+      color: #7d8590;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .oss-code-file svg { width: 14px; height: 14px; }
+
+    .oss-code-body {
+      padding: 20px 0;
+      font-size: 13.5px;
+      line-height: 1.9;
+      overflow-x: auto;
+    }
+    .oss-line {
+      display: flex;
+      padding: 0 22px;
+      color: #c9d1d9;
+      white-space: pre;
+    }
+    .oss-line:hover { background: rgba(88, 166, 255, 0.06); }
+    .oss-num {
+      color: #484f58;
+      min-width: 28px;
+      user-select: none;
+      padding-right: 18px;
+      display: inline-block;
+    }
+    .oss-kw { color: #ff7b72; }
+    .oss-str { color: #a5d6ff; }
+    .oss-key { color: #79c0ff; }
+    .oss-nval { color: #79c0ff; }
+    .oss-comment { color: #8b949e; font-style: italic; }
+
+    .oss-code-footer {
+      padding: 12px 20px;
+      background: #161b22;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #7d8590;
+    }
+    .oss-code-footer .oss-branch {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .oss-code-footer .oss-branch svg {
+      width: 13px;
+      height: 13px;
+    }
+    .oss-code-footer .oss-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #3fb950;
+    }
+    .oss-code-footer .oss-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3fb950;
+      box-shadow: 0 0 8px #3fb950;
+    }
+
+    /* معلومات وإحصائيات */
+    .oss-info {
+      text-align: start;
+    }
+    .oss-info-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      background: rgba(190, 18, 60, 0.08);
+      color: var(--red-dark);
+      border: 1px solid rgba(190, 18, 60, 0.18);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .oss-info-badge svg { width: 14px; height: 14px; }
+
+    .oss-info h3 {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3.5vw, 36px);
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 18px;
+      line-height: 1.2;
+    }
+    .oss-info h3 .accent {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .oss-info-desc {
+      color: var(--ink-muted);
+      font-size: 17px;
+      line-height: 1.9;
+      margin-bottom: 32px;
+    }
+
+    .oss-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .oss-stat {
+      background: var(--white);
+      border: 1px solid rgba(190, 18, 60, 0.1);
+      border-radius: 14px;
+      padding: 18px 20px;
+      transition: all 0.25s ease;
+    }
+    .oss-stat:hover {
+      transform: translateY(-3px);
+      border-color: rgba(190, 18, 60, 0.28);
+      box-shadow: 0 10px 28px rgba(190, 18, 60, 0.1);
+    }
+    .oss-stat-label {
+      color: var(--ink-dim);
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .oss-stat-label svg { width: 14px; height: 14px; }
+    .oss-stat-value {
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .oss-stat-value.accent {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .oss-ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-github {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 26px;
+      background: #0d1117;
+      color: white;
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 15.5px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 10px 28px rgba(10, 5, 5, 0.28);
+      transition: all 0.25s ease;
+    }
+    .btn-github:hover {
+      transform: translateY(-2px);
+      background: #161b22;
+      box-shadow: 0 14px 36px rgba(10, 5, 5, 0.4);
+    }
+    .btn-github svg:first-child { width: 20px; height: 20px; }
+    .btn-github svg:last-child {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.25s ease;
+    }
+    .btn-github:hover svg:last-child { transform: translateX(-4px); }
+
+    .btn-issues {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 24px;
+      background: transparent;
+      color: var(--ink);
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14.5px;
+      border: 1.5px solid rgba(190, 18, 60, 0.2);
+      transition: all 0.25s ease;
+    }
+    .btn-issues:hover {
+      border-color: var(--red-dark);
+      background: var(--white);
+      color: var(--red-dark);
+    }
+    .btn-issues svg { width: 16px; height: 16px; }
+
+    @media (max-width: 900px) {
+      .oss-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .oss-code-window {
+        transform: none;
+        max-width: 560px;
+        margin: 0 auto;
+      }
+      .oss-info { text-align: center; }
+      .oss-ctas { justify-content: center; }
+    }
+    @media (max-width: 520px) {
+      .oss-stats { grid-template-columns: 1fr; }
+      .oss-code-body { font-size: 12px; }
+      .oss-num { min-width: 22px; padding-right: 12px; }
+    }
+
     /* ====================================================
        CTA النهائي
     ==================================================== */
@@ -1260,14 +1762,27 @@
           مع خطوط عربية منتقاة، وكاشف ذكي لخطوط نظامك، وتحكّم دقيق في كل التفاصيل.
         </p>
         <div class="hero-ctas">
-          <a href="#install" class="btn btn-primary">
+          <a href="install.html" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            حمِّل الإضافة الآن
+          </a>
+          <a href="https://chromewebstore.google.com/detail/jfkjlncpkhahfdapjgfgcbkbfbcmlaam" class="btn btn-ghost btn-pending" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-            ثبّت الإضافة الآن
+            Chrome Web Store
+            <span class="review-badge">قيد المراجعة</span>
           </a>
-          <a href="#features" class="btn btn-ghost">
-            اعرف أكثر
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </a>
+        </div>
+        <div class="hero-ctas-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Chrome Web Store قيد المراجعة — حمِّل الإضافة مباشرة وجرّبها خلال دقائق
         </div>
         <div class="hero-credit">
           تصميم: <strong>شؤون إسلامية</strong>
@@ -1420,7 +1935,7 @@
           واجهة عربية بالكامل — زرّ كبير للتفعيل، خطوط منتقاة، تحكّم بالحجم والتباعد،
           وكاشف خطوط النظام. كل شيء في نقرة.
         </p>
-        <a href="#install" class="btn btn-primary">
+        <a href="install.html" class="btn btn-primary">
           جرّبها الآن
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
         </a>
@@ -1475,8 +1990,15 @@
         <div class="step reveal">
           <div class="step-num">١</div>
           <div class="step-content">
-            <h3>ثبّت الإضافة</h3>
-            <p>حمّل الإضافة من متجر Chrome الرسمي — ثوانٍ معدودة ولا تحتاج تسجيلًا.</p>
+            <h3>حمِّل الإضافة وثبّتها</h3>
+            <p>
+              <a href="install.html" style="color: var(--red-dark); font-weight: 700; text-decoration: none; border-bottom: 2px solid rgba(190,18,60,0.3);">حمِّل ملف ZIP (45 KB) واتبع شرح التثبيت اليدوي</a>
+              — دقائق معدودة.
+              <br>
+              <span style="font-size: 14px; color: var(--ink-dim);">
+                <em>Chrome Web Store قيد المراجعة — سيكون متاحًا قريبًا للتثبيت بنقرة واحدة.</em>
+              </span>
+            </p>
           </div>
         </div>
 
@@ -1493,6 +2015,133 @@
           <div class="step-content">
             <h3>اضغط الزرّ الكبير للتفعيل</h3>
             <p>يتحوّل للأخضر — وتعمل الإضافة فورًا. عدِّل الخط والحجم حسب رغبتك من نفس النافذة.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       مفتوح المصدر — GitHub
+  ==================================================== -->
+  <section class="section open-source" id="open-source">
+    <div class="container text-center">
+      <span class="eyebrow reveal">شفافية كاملة</span>
+      <h2 class="section-title reveal reveal-delay-1">
+        الكود <span class="highlight">مفتوح للمراجعة</span>
+      </h2>
+      <p class="section-sub reveal reveal-delay-2">
+        كل سطر في الإضافة متاح للفحص والمراجعة على GitHub —
+        لا ملفات مخفية، لا كود مُشفَّر، لا أسرار.
+      </p>
+
+      <div class="oss-grid">
+
+        <!-- نافذة الكود -->
+        <div class="oss-code-window reveal">
+          <div class="oss-code-tabs">
+            <span class="oss-code-dot r"></span>
+            <span class="oss-code-dot y"></span>
+            <span class="oss-code-dot g"></span>
+            <span class="oss-code-file">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+              manifest.json
+            </span>
+          </div>
+          <div class="oss-code-body">
+            <div class="oss-line"><span class="oss-num">1</span><span>{</span></div>
+            <div class="oss-line"><span class="oss-num">2</span><span>  <span class="oss-key">"manifest_version"</span>: <span class="oss-nval">3</span>,</span></div>
+            <div class="oss-line"><span class="oss-num">3</span><span>  <span class="oss-key">"name"</span>: <span class="oss-str">"RTL Free"</span>,</span></div>
+            <div class="oss-line"><span class="oss-num">4</span><span>  <span class="oss-key">"version"</span>: <span class="oss-str">"1.0.0"</span>,</span></div>
+            <div class="oss-line"><span class="oss-num">5</span><span>  <span class="oss-key">"permissions"</span>: [</span></div>
+            <div class="oss-line"><span class="oss-num">6</span><span>    <span class="oss-str">"storage"</span>,</span></div>
+            <div class="oss-line"><span class="oss-num">7</span><span>    <span class="oss-str">"activeTab"</span>,</span></div>
+            <div class="oss-line"><span class="oss-num">8</span><span>    <span class="oss-str">"scripting"</span>,</span></div>
+            <div class="oss-line"><span class="oss-num">9</span><span>    <span class="oss-str">"contextMenus"</span></span></div>
+            <div class="oss-line"><span class="oss-num">10</span><span>  ],</span></div>
+            <div class="oss-line"><span class="oss-num">11</span><span>  <span class="oss-comment">// لا بيانات تُرسل · لا خوادم · لا أسرار</span></span></div>
+            <div class="oss-line"><span class="oss-num">12</span><span>}</span></div>
+          </div>
+          <div class="oss-code-footer">
+            <span class="oss-branch">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="6" y1="3" x2="6" y2="15"/>
+                <circle cx="18" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <path d="M18 9a9 9 0 0 1-9 9"/>
+              </svg>
+              main · shuounislamiya/rtl-free
+            </span>
+            <span class="oss-status">تم التحقق · Manifest V3</span>
+          </div>
+        </div>
+
+        <!-- المعلومات والإحصائيات -->
+        <div class="oss-info reveal reveal-delay-1">
+          <span class="oss-info-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12l2 2 4-4"/>
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+            مفتوح المصدر · MIT License
+          </span>
+          <h3>تفقَّد الكود بنفسك — <span class="accent">كل سطر</span> في العلن</h3>
+          <p class="oss-info-desc">
+            الإضافة مفتوحة المصدر بالكامل على GitHub. افحص الكود، راجع التغييرات،
+            اقترح تحسينات، أو أبلغ عن أي مشكلة — نحن نرحّب بمشاركتك.
+          </p>
+
+          <div class="oss-stats">
+            <div class="oss-stat">
+              <div class="oss-stat-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                الترخيص
+              </div>
+              <div class="oss-stat-value accent">MIT</div>
+            </div>
+            <div class="oss-stat">
+              <div class="oss-stat-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                الإصدار
+              </div>
+              <div class="oss-stat-value">Manifest V3</div>
+            </div>
+            <div class="oss-stat">
+              <div class="oss-stat-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+                التتبّع
+              </div>
+              <div class="oss-stat-value accent">صفر</div>
+            </div>
+            <div class="oss-stat">
+              <div class="oss-stat-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                التبعيات
+              </div>
+              <div class="oss-stat-value accent">صفر</div>
+            </div>
+          </div>
+
+          <div class="oss-ctas">
+            <a href="https://github.com/shuounislamiya/rtl-free" class="btn-github" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+              عرض المستودع على GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </a>
+            <a href="https://github.com/shuounislamiya/rtl-free/issues" class="btn-issues" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              أبلِغ عن مشكلة
+            </a>
           </div>
         </div>
 
@@ -1661,6 +2310,81 @@
           هذه الإضافة صدقة جارية ومبادرة مجانية — خدمةً للمحتوى العربي ودعمًا لسهولة القراءة لطلاب العلم
           وأهل اللسان العربي على جميع المواقع. نسأل الله أن يجعلها في ميزان حسنات كل من ساهم وكل من استفاد.
         </p>
+
+        <div class="credit-main-cta">
+          <a href="https://shuounislamiya.org" class="btn-main-site" target="_blank" rel="noopener">
+            زُر موقع شؤون إسلامية
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"/>
+              <polyline points="12 5 5 12 12 19"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="credit-divider">تابعنا على</div>
+
+        <div class="socials">
+          <a href="https://www.youtube.com/c/Shuounislamiya" class="social-link" data-brand="youtube" aria-label="YouTube" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <a href="https://twitter.com/Shuounislamiya" class="social-link" data-brand="twitter" aria-label="Twitter / X" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/Shuounislamiya/" class="social-link" data-brand="facebook" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.63 8.63 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/>
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/shuounislamiya/" class="social-link" data-brand="instagram" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+            </svg>
+          </a>
+          <a href="https://t.me/ArabAffairsTV" class="social-link" data-brand="telegram" aria-label="Telegram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+          </a>
+          <a href="https://soundcloud.com/shuounislamiya" class="social-link" data-brand="soundcloud" aria-label="SoundCloud" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.034 7.85c-.405 0-.802.054-1.186.155C15.31 5.09 12.87 3.05 9.94 3.05c-.698 0-1.37.11-1.997.323-.234.08-.293.163-.293.452v12.376c0 .273.207.471.48.508.001 0 8.874.003 8.904.003C19.773 16.712 22 14.486 22 11.74s-2.226-3.89-4.966-3.89zM6.97 4.63c-.36-.18-.76-.3-1.18-.367-.096-.02-.175.06-.175.16v11.93c0 .09.075.168.168.168.433-.01.847-.088 1.224-.228.09-.027.16-.11.16-.2V4.84c0-.09-.07-.18-.16-.21h-.037zm-2.94.834c-.103-.04-.217-.05-.328-.05-.108 0-.22.01-.323.05-.09.03-.16.11-.16.21v10.34c0 .09.07.18.16.21.1.035.215.047.323.047.11 0 .225-.012.328-.047.094-.03.164-.12.164-.21V5.673c0-.09-.07-.17-.164-.21zm-2.49.82c-.326-.017-.65.064-.925.233C.24 6.68 0 7.135 0 7.62v7.64c0 .483.24.939.615 1.103.276.168.6.25.924.233.1-.005.185-.095.185-.2V6.484c0-.105-.085-.195-.185-.2z"/>
+            </svg>
+          </a>
+          <a href="https://www.patreon.com/shuounislamiya" class="social-link" data-brand="patreon" aria-label="Patreon — ادعمنا" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21M2 21.6h3.5V2.41H2V21.6z"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="credit-divider">أو تواصل مباشرةً</div>
+
+        <div class="contact-direct">
+          <a href="mailto:info@shuounislamiya.org" class="contact-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <code>info@shuounislamiya.org</code>
+          </a>
+          <a href="https://wa.me/447537189088" class="contact-chip" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            WhatsApp
+          </a>
+          <a href="https://t.me/MoustafaJournalist" class="contact-chip" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+            Telegram
+          </a>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1672,10 +2396,21 @@
     <div class="container">
       <h2>جاهز لتجربة عربية <br>بلا عيوب؟</h2>
       <p>مجاني بالكامل · مفتوح المصدر · يحترم خصوصيتك</p>
-      <a href="#" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
-        ثبّت RTL Free الآن
-      </a>
+      <div class="hero-ctas" style="justify-content: center;">
+        <a href="install.html" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          حمِّل وثبّت الآن
+        </a>
+        <a href="https://chromewebstore.google.com/detail/jfkjlncpkhahfdapjgfgcbkbfbcmlaam" class="btn btn-ghost btn-pending" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
+          Chrome Web Store
+          <span class="review-badge">قيد المراجعة</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -1688,11 +2423,13 @@
         RTL Free v1.0 — تصميم: <strong>شؤون إسلامية</strong>
       </div>
       <div>
+        <a href="install.html">تثبيت الإضافة</a>
+        ·
         <a href="#features">المميزات</a>
         ·
-        <a href="#install">التثبيت</a>
+        <a href="#open-source">مفتوح المصدر</a>
         ·
-        <a href="#problem">لماذا؟</a>
+        <a href="https://github.com/shuounislamiya/rtl-free" target="_blank" rel="noopener">GitHub</a>
         ·
         <a href="https://rtlfree.shuounislamiya.org/privacy.html">سياسة الخصوصية</a>
       </div>
