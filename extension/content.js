@@ -52,7 +52,8 @@
   // حتى لو كان نصها العربي داخل <span> أو <a> أو عنصر داخلي
   const BLOCK_RTL_TAGS = new Set([
     'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
-    'P', 'LI', 'DT', 'DD', 'TD', 'TH',
+    'P', 'LI', 'UL', 'OL', 'DL', 'DT', 'DD',
+    'TD', 'TH', 'TR', 'THEAD', 'TBODY', 'TABLE',
     'BLOCKQUOTE', 'FIGCAPTION', 'SUMMARY', 'DETAILS',
     'LABEL', 'LEGEND', 'CAPTION'
   ]);
@@ -245,7 +246,16 @@ ${hostPrefix}${rtlSel} ol {
     document.documentElement.removeAttribute(`${DATA_ATTR}-active`);
     document.querySelectorAll(`[${DATA_ATTR}]`).forEach(el => {
       el.removeAttribute(DATA_ATTR);
-      if (el.getAttribute('dir') === 'auto' && el.dataset.rtlfreeDir) {
+      // امسح inline styles التي ضبطناها
+      el.style.direction = '';
+      el.style.textAlign = '';
+      el.style.paddingRight = '';
+      el.style.paddingLeft = '';
+      el.style.marginRight = '';
+      el.style.marginLeft = '';
+      el.style.listStylePosition = '';
+      // أرجع dir الأصلي
+      if (el.dataset.rtlfreeDir) {
         el.setAttribute('dir', el.dataset.rtlfreeDir);
         delete el.dataset.rtlfreeDir;
       } else {
@@ -291,12 +301,41 @@ ${hostPrefix}${rtlSel} ol {
     if (!shouldProcess(element)) return;
     if (element.getAttribute(DATA_ATTR) === 'rtl') return;
 
+    // احفظ الـ dir الأصلي لإمكانية الإرجاع
     if (!element.dataset.rtlfreeDir && element.hasAttribute('dir')) {
       element.dataset.rtlfreeDir = element.getAttribute('dir');
     }
 
-    element.setAttribute('dir', 'auto');
+    // === inline styles (أعلى أولوية من CSS الموقع) ===
+    // مطلوب لأن مواقع مثل AI Studio تفرض text-align: left بقواعد CSS يصعب تجاوزها
+    element.setAttribute('dir', 'rtl');
+    element.style.direction = 'rtl';
+    element.style.textAlign = 'right';
+
     element.setAttribute(DATA_ATTR, 'rtl');
+
+    // معالجة خاصة للقوائم: إذا كانت العنصر <li>، طبّق على الأب ul/ol أيضًا
+    const tag = element.tagName;
+    if (tag === 'LI') {
+      const parent = element.parentElement;
+      if (parent && (parent.tagName === 'UL' || parent.tagName === 'OL')) {
+        if (parent.getAttribute(DATA_ATTR) !== 'rtl-list') {
+          parent.setAttribute('dir', 'rtl');
+          parent.style.direction = 'rtl';
+          parent.style.paddingRight = '24px';
+          parent.style.paddingLeft = '0';
+          parent.style.marginRight = '0';
+          parent.style.marginLeft = '0';
+          parent.setAttribute(DATA_ATTR, 'rtl-list');
+        }
+      }
+      element.style.listStylePosition = 'outside';
+    } else if (tag === 'UL' || tag === 'OL') {
+      element.style.paddingRight = '24px';
+      element.style.paddingLeft = '0';
+      element.style.marginRight = '0';
+      element.style.marginLeft = '0';
+    }
   }
 
   function applyInputFix(element) {
