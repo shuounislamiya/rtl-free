@@ -166,6 +166,9 @@ ${hostPrefix}${rtlSel} {
   letter-spacing: ${letterSpacing}em !important;
   font-weight: ${fontWeight};
   font-size: ${scale}em;
+  /* محاذاة صحيحة: start تتبع direction (تصير يمينًا للـ RTL) */
+  text-align: start !important;
+  unicode-bidi: plaintext !important;
   ${smoothFonts ? '-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;' : ''}
 }
 
