@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="_template.css">
+<style>
+  .side-text {
+    position: absolute;
+    top: 100px;
+    right: 80px;
+    width: 500px;
+    color: white;
+  }
+  .side-text .eyebrow {
+    display: inline-block;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(251,191,36,0.2), rgba(245,158,11,0.2));
+    border: 1px solid rgba(251,191,36,0.5);
+    color: #fbbf24;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .side-text h1 {
+    font-family: 'Tajawal';
+    font-size: 54px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, #fff, #fecaca);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .side-text h1 span {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .side-text > p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 28px;
+  }
+  .features-list {
+    list-style: none;
+  }
+  .features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    font-size: 15px;
+    color: rgba(255,255,255,0.9);
+  }
+  .features-list li::before {
+    content: '✓';
+    width: 26px;
+    height: 26px;
+    background: linear-gradient(135deg, #22c55e, #15803d);
+    border-radius: 7px;
+    color: white;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(34,197,94,0.25);
+  }
+
+  /* Popup — font detector */
+  .popup-fd {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 420px;
+    max-height: 620px;
+    background: #0f172a;
+    border: 1px solid rgba(148,163,184,0.15);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    color: #f1f5f9;
+  }
+  .detect-head {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .detect-input {
+    flex: 1;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #f1f5f9;
+  }
+  .detect-btn {
+    background: linear-gradient(135deg, #ef4444, #be123c);
+    color: white;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 12px rgba(239,68,68,0.3);
+  }
+  .detect-hint {
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #86efac;
+    margin-bottom: 10px;
+  }
+  .font-chips {
+    background: #1e293b;
+    border: 1px solid rgba(148,163,184,0.1);
+    border-radius: 12px;
+    padding: 6px;
+    max-height: 420px;
+    overflow: hidden;
+  }
+  .font-chip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 3px;
+  }
+  .font-chip.active {
+    background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(190,18,60,0.15));
+    border: 1px solid rgba(239,68,68,0.4);
+  }
+  .font-chip-name {
+    font-size: 13px;
+    color: #f1f5f9;
+    direction: ltr;
+  }
+  .font-chip.active .font-chip-name {
+    color: #fca5a5;
+  }
+  .font-chip-preview {
+    font-size: 15px;
+    color: #94a3b8;
+  }
+  .font-chip.active .font-chip-preview {
+    color: #f1f5f9;
+  }
+
+  .bottom-tag {
+    position: absolute;
+    bottom: 30px;
+    left: 0; right: 0;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 14px;
+  }
+  .bottom-tag strong { color: #fbbf24; font-weight: 800; }
+</style>
+</head>
+<body>
+  <div class="stage bg-dark">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="popup-fd">
+      <div class="popup-hero">
+        <div class="popup-brand">
+          <div class="popup-logo">R</div>
+          <div class="popup-title">
+            <h1>RTL Free</h1>
+            <p>shuounislamiya.org</p>
+          </div>
+        </div>
+        <div class="popup-settings-icon">⚙</div>
+      </div>
+
+      <div class="card" style="padding:12px 14px;">
+        <div class="card-head"><h3>الخط المخصّص</h3></div>
+        <div class="detect-head">
+          <div class="detect-input">IBM Plex Sans Arabic</div>
+          <div class="detect-btn">🔍 اكتشاف</div>
+        </div>
+        <div class="detect-hint">✓ تم العثور على 18 خطًا — انقر لاستخدامه</div>
+        <div class="font-chips">
+          <div class="font-chip active">
+            <span class="font-chip-name">IBM Plex Sans Arabic</span>
+            <span class="font-chip-preview" style="font-family:'IBM Plex Sans Arabic'">أبج ١٢٣</span>
+          </div>
+          <div class="font-chip">
+            <span class="font-chip-name">Tajawal</span>
+            <span class="font-chip-preview" style="font-family:'Tajawal'">أبج ١٢٣</span>
+          </div>
+          <div class="font-chip">
+            <span class="font-chip-name">Sakkal Majalla</span>
+            <span class="font-chip-preview" style="font-family:'Sakkal Majalla', serif">أبج ١٢٣</span>
+          </div>
+          <div class="font-chip">
+            <span class="font-chip-name">Traditional Arabic</span>
+            <span class="font-chip-preview" style="font-family:'Traditional Arabic', serif">أبج ١٢٣</span>
+          </div>
+          <div class="font-chip">
+            <span class="font-chip-name">Segoe UI</span>
+            <span class="font-chip-preview" style="font-family:'Segoe UI'">أبج ١٢٣</span>
+          </div>
+          <div class="font-chip">
+            <span class="font-chip-name">Tahoma</span>
+            <span class="font-chip-preview" style="font-family:Tahoma">أبج ١٢٣</span>
+          </div>
+          <div class="font-chip">
+            <span class="font-chip-name">Dubai</span>
+            <span class="font-chip-preview" style="font-family:'Dubai'">أبج ١٢٣</span>
+          </div>
+          <div class="font-chip">
+            <span class="font-chip-name">Arabic Typesetting</span>
+            <span class="font-chip-preview" style="font-family:'Arabic Typesetting'">أبج ١٢٣</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-text">
+      <span class="eyebrow">✦ ميزة حصرية</span>
+      <h1>كاشف خطوط <span>النظام</span></h1>
+      <p>اكتشف بضغطة واحدة كلّ الخطوط العربية المثبَّتة على جهازك، مع معاينة حيّة لكلّ خط. ميزة لا توجد في أي إضافة مشابهة.</p>
+      <ul class="features-list">
+        <li>يدعم Local Font Access API الحديث</li>
+        <li>احتياطي Canvas يفحص 80+ خطًا عربيًا</li>
+        <li>معاينة حيّة لكلّ خط قبل الاختيار</li>
+        <li>يعمل على Windows و Mac و Linux</li>
+      </ul>
+    </div>
+
+    <div class="bottom-tag">تصميم: <strong>شؤون إسلامية</strong></div>
+  </div>
+</body>
+</html>

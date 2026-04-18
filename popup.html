@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>RTL Free</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body class="state-off">
+  <div class="app">
+
+    <header class="hero">
+      <div class="brand">
+        <div class="logo">
+          <svg viewBox="0 0 40 40" width="36" height="36">
+            <defs>
+              <linearGradient id="gR" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ef4444"/>
+                <stop offset="100%" stop-color="#be123c"/>
+              </linearGradient>
+            </defs>
+            <rect width="40" height="40" rx="10" fill="url(#gR)"/>
+            <text x="20" y="28" text-anchor="middle" fill="white" font-size="22" font-weight="800" font-family="Arial, sans-serif">R</text>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>RTL Free</h1>
+          <p id="currentSite">—</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="btnOptions" title="الإعدادات المتقدمة" aria-label="الإعدادات المتقدمة">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- ============ الزر الرئيسي الكبير ============ -->
+    <section class="main-toggle">
+      <button class="big-toggle" id="mainToggle">
+        <div class="big-toggle-icon" id="toggleIcon">
+          <!-- أيقونة ديناميكية -->
+          <svg class="icon-off" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
+            <line x1="12" y1="2" x2="12" y2="12"/>
+          </svg>
+          <svg class="icon-on" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="big-toggle-text">
+          <h2 id="toggleTitle">تفعيل على هذا الموقع</h2>
+          <p id="toggleSub">اضغط لتشغيل RTL Free</p>
+        </div>
+      </button>
+    </section>
+
+    <!-- ============ الإعدادات (تظهر عند التفعيل) ============ -->
+    <div class="settings" id="settingsWrap">
+
+      <section class="card">
+        <div class="card-header">
+          <h3>الخط العربي</h3>
+          <button class="chip" id="fontShuffle" title="تبديل الخط">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+            </svg>
+          </button>
+        </div>
+        <select id="fontFamily" class="select">
+          <option value="site">خط الموقع الافتراضي (بدون تغيير)</option>
+          <option value="IBM Plex Sans Arabic">IBM Plex Sans Arabic</option>
+          <option value="Tajawal">Tajawal — تجوّل</option>
+          <option value="Amiri">Amiri — أميري</option>
+          <option value="Vazirmatn">Vazirmatn — وزیرمتن</option>
+          <option value="__custom__">— خط مخصّص من النظام —</option>
+        </select>
+
+        <div class="custom-font" id="customFontBox" hidden>
+          <div class="custom-font-head">
+            <input type="text" id="customFontName" placeholder="اسم الخط (أو اكتشفه تلقائيًا)">
+            <button class="detect-btn" id="btnDetectFonts" title="اكتشاف خطوط النظام المثبَّتة">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              اكتشاف
+            </button>
+          </div>
+          <div class="detected-fonts" id="detectedFonts" hidden></div>
+          <p class="hint-sm" id="detectHint">اضغط «اكتشاف» لعرض كل الخطوط المتاحة على جهازك</p>
+        </div>
+
+        <div class="preview" id="preview">
+          <div class="preview-main">بسم الله الرحمن الرحيم</div>
+          <div class="preview-sub">الحمد لله رب العالمين ١٢٣٤٥</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h3>حجم الخط</h3>
+          <span class="value" id="fontSizeVal">100%</span>
+        </div>
+        <input type="range" id="fontSize" min="70" max="180" step="5" value="100" class="range">
+        <div class="quick-sizes">
+          <button class="size-btn" data-size="85">ص</button>
+          <button class="size-btn" data-size="100">عادي</button>
+          <button class="size-btn" data-size="115">ك</button>
+          <button class="size-btn" data-size="130">كك</button>
+          <button class="size-btn" data-size="150">ضخم</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h3>تباعد الأسطر</h3>
+          <span class="value" id="lineHeightVal">1.8</span>
+        </div>
+        <input type="range" id="lineHeight" min="1" max="3" step="0.1" value="1.8" class="range">
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h3>تباعد الأحرف</h3>
+          <span class="value" id="letterSpacingVal">0</span>
+        </div>
+        <input type="range" id="letterSpacing" min="-0.05" max="0.2" step="0.01" value="0" class="range">
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h3>سُمك الخط</h3>
+          <span class="value" id="fontWeightVal">400</span>
+        </div>
+        <input type="range" id="fontWeight" min="300" max="800" step="100" value="400" class="range">
+        <div class="weight-scale">
+          <span>رفيع</span>
+          <span>عادي</span>
+          <span>عريض</span>
+          <span>أسود</span>
+        </div>
+      </section>
+
+      <section class="card compact">
+        <div class="row">
+          <div class="row-info">
+            <h3>فرض RTL على الصفحة</h3>
+            <p>يقلب الصفحة بالكامل لليمين</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="forceRTL">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="row">
+          <div class="row-info">
+            <h3>إخفاء التشكيل</h3>
+            <p>إخفاء الحركات والتنوين</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="hideTashkeel">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h3>الأرقام</h3>
+        </div>
+        <div class="segmented">
+          <input type="radio" name="numerals" id="num-none" value="none" checked>
+          <label for="num-none">كما هي</label>
+          <input type="radio" name="numerals" id="num-hindi" value="hindi">
+          <label for="num-hindi">عربية ١٢٣</label>
+          <input type="radio" name="numerals" id="num-arabic" value="arabic">
+          <label for="num-arabic">لاتينية 123</label>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button class="btn btn-secondary" id="btnRescan">إعادة فحص الصفحة</button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <span class="designed-by">تصميم: <strong>شؤون إسلامية</strong></span>
+      <span class="dot"></span>
+      <span>v1.0</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

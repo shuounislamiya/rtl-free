@@ -1,0 +1,34 @@
+# Build & deploy artifacts
+_build/
+_deploy/
+*.zip
+*.crx
+*.pem
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python (build-icons.py)
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
+$RECYCLE.BIN/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local

@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTL Free — إصلاح الاتجاه العربي الاحترافي</title>
+  <meta name="description" content="إضافة مجانية واحترافية لإصلاح اتجاه النصوص العربية تلقائيًا على جميع المواقع، مع خطوط عربية منتقاة وكاشف ذكي لخطوط النظام. تصميم: شؤون إسلامية.">
+  <meta name="keywords" content="RTL, إضافة عربية, اتجاه النص, خطوط عربية, كروم, كلود, شات جي بي تي">
+  <meta name="theme-color" content="#be123c">
+  <meta property="og:title" content="RTL Free — إصلاح الاتجاه العربي الاحترافي">
+  <meta property="og:description" content="إضافة مجانية تُصلح اتجاه النصوص العربية تلقائيًا على جميع المواقع، بضغطة واحدة.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rtlfree.shuounislamiya.org">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --red: #ef4444;
+      --red-2: #dc2626;
+      --red-dark: #be123c;
+      --red-deeper: #881337;
+      --rose-light: #fecaca;
+      --rose-softer: #fff1f2;
+
+      --ink: #1a0a0a;
+      --ink-soft: #3d1a1a;
+      --ink-muted: #6b4444;
+      --ink-dim: #94787a;
+      --cream: #fffaf7;
+      --cream-2: #fef2f2;
+      --white: #ffffff;
+
+      --green: #22c55e;
+      --amber: #f59e0b;
+
+      --font: 'IBM Plex Sans Arabic', 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+      --font-display: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif;
+
+      --shadow-sm: 0 2px 8px rgba(190, 18, 60, 0.08);
+      --shadow: 0 8px 28px rgba(190, 18, 60, 0.12);
+      --shadow-lg: 0 20px 60px rgba(190, 18, 60, 0.18);
+      --shadow-xl: 0 28px 90px rgba(190, 18, 60, 0.22);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.75;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection { background: var(--red); color: white; }
+
+    /* ====================================================
+       شريط التقدم العلوي
+    ==================================================== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--red-dark), var(--red-deeper));
+      z-index: 1000;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* ====================================================
+       الهيرو
+    ==================================================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a0a0a 0%, #3d0a14 40%, var(--red-deeper) 80%, var(--red-dark) 100%);
+      color: var(--white);
+      padding: 100px 20px 80px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    /* كرات ضوئية متحركة في الخلفية */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.5;
+      pointer-events: none;
+      animation: float 18s ease-in-out infinite;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.6), transparent 70%);
+      top: -150px; right: -150px;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.35), transparent 70%);
+      bottom: -100px; left: -100px;
+      animation-delay: -6s;
+      animation-duration: 24s;
+    }
+    .orb-3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.35), transparent 70%);
+      top: 40%; left: 30%;
+      animation-delay: -12s;
+      animation-duration: 30s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(50px, -80px) scale(1.1); }
+      66% { transform: translate(-30px, 40px) scale(0.95); }
+    }
+
+    /* شبكة خطوط خلفية */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-text {
+      animation: fadeInUp 1s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      margin-bottom: 24px;
+    }
+    .hero-badge-dot {
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--green);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 7vw, 84px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 20%, #fecaca 60%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(18px, 2vw, 22px);
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 560px;
+    }
+    .hero-sub strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 14px;
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(.2,.8,.2,1);
+      cursor: pointer;
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #fff, #fef2f2);
+      color: var(--red-dark);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25), inset 0 -2px 0 rgba(190,18,60,0.1);
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.9), transparent 70%);
+      transform: translateX(100%);
+      transition: transform 0.6s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    }
+    .btn-primary:hover::before {
+      transform: translateX(-100%);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .btn svg { width: 20px; height: 20px; }
+
+    .hero-credit {
+      margin-top: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.65);
+      font-size: 14px;
+    }
+    .hero-credit strong {
+      color: #fbbf24;
+      font-weight: 700;
+    }
+
+    /* ====================================================
+       المعاينة الحيّة (Before/After)
+    ==================================================== */
+    .hero-visual {
+      position: relative;
+      animation: fadeInUp 1s 0.2s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .demo-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      transform: rotate(-1deg);
+      transition: transform 0.4s;
+    }
+    .demo-card:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .demo-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .demo-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .demo-dot.r { background: #ff5f57; }
+    .demo-dot.y { background: #febc2e; }
+    .demo-dot.g { background: #28c840; }
+    .demo-title {
+      color: rgba(255,255,255,0.6);
+      font-size: 12px;
+      margin-right: auto;
+      padding-inline-end: 8px;
+    }
+
+    .demo-row {
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .demo-before {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      direction: ltr;
+      text-align: left;
+    }
+    .demo-after {
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      direction: rtl;
+      text-align: right;
+    }
+
+    .demo-tag {
+      position: absolute;
+      top: -10px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+    }
+    .demo-before .demo-tag {
+      background: var(--red);
+      color: white;
+      right: 16px;
+    }
+    .demo-after .demo-tag {
+      background: var(--green);
+      color: white;
+      right: 16px;
+    }
+
+    .demo-text {
+      color: rgba(255,255,255,0.95);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-top: 6px;
+    }
+
+    /* ====================================================
+       الأقسام العامة
+    ==================================================== */
+    .section {
+      padding: 120px 20px;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--red-dark);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      background: var(--rose-softer);
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4.5vw, 54px);
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 18px;
+      letter-spacing: -1px;
+      line-height: 1.15;
+    }
+    .section-title .highlight {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-sub {
+      font-size: 19px;
+      color: var(--ink-muted);
+      max-width: 640px;
+      line-height: 1.8;
+      margin-bottom: 48px;
+    }
+
+    .text-center { text-align: center; }
+    .text-center .section-sub { margin: 0 auto 48px; }
+
+    /* أنميشن الدخول عند التمرير */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s cubic-bezier(.2,.8,.2,1), transform 0.9s cubic-bezier(.2,.8,.2,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ====================================================
+       قسم المشكلة
+    ==================================================== */
+    .problem-section {
+      background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .compare-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.04);
+      position: relative;
+      transition: all 0.3s;
+    }
+    .compare-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+    .compare-card .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .compare-card.bad .label {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--red-2);
+    }
+    .compare-card.good .label {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--green);
+    }
+    .compare-text {
+      font-size: 17px;
+      line-height: 2.1;
+      color: var(--ink-soft);
+    }
+    .compare-card.bad .compare-text {
+      direction: ltr;
+      text-align: left;
+      background: repeating-linear-gradient(0deg, transparent 0, transparent 27px, rgba(239, 68, 68, 0.06) 27px, rgba(239, 68, 68, 0.06) 28px);
+      padding: 8px;
+      border-radius: 8px;
+    }
+    .compare-card.good .compare-text {
+      direction: rtl;
+      text-align: right;
+    }
+    .arrow-connect {
+      position: absolute;
+      top: 50%;
+      right: -30px;
+      transform: translateY(-50%);
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      box-shadow: var(--shadow);
+      z-index: 2;
+    }
+
+    /* ====================================================
+       المميزات
+    ==================================================== */
+    .features {
+      background: var(--white);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      position: relative;
+      padding: 36px 28px;
+      background: var(--white);
+      border: 1px solid rgba(190, 18, 60, 0.08);
+      border-radius: 20px;
+      transition: all 0.4s cubic-bezier(.2,.8,.2,1);
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.04), rgba(190, 18, 60, 0.02));
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      top: -50%; right: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.08), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(190, 18, 60, 0.2);
+      box-shadow: var(--shadow-lg);
+    }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-card:hover::after { opacity: 1; }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(190, 18, 60, 0.25);
+      position: relative;
+      z-index: 1;
+    }
+    .feature-icon svg { width: 28px; height: 28px; }
+
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .feature-card p {
+      font-size: 15.5px;
+      color: var(--ink-muted);
+      line-height: 1.85;
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-exclusive {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+      z-index: 2;
+    }
+
+    /* ====================================================
+       كيف تعمل
+    ==================================================== */
+    .how {
+      background: linear-gradient(180deg, var(--cream-2) 0%, var(--cream) 100%);
+    }
+
+    .steps-wrapper {
+      position: relative;
+      margin-top: 60px;
+    }
+
+    .steps-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      right: 50%;
+      transform: translateX(50%);
+      width: 2px;
+      height: calc(100% - 60px);
+      background: linear-gradient(180deg, var(--red), var(--red-dark));
+      opacity: 0.2;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 28px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      align-items: start;
+      position: relative;
+    }
+
+    .step-num {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 900;
+      font-family: var(--font-display);
+      box-shadow: 0 10px 28px rgba(190, 18, 60, 0.3);
+      border: 4px solid var(--cream);
+      z-index: 1;
+    }
+
+    .step-content {
+      background: var(--white);
+      padding: 24px 28px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.03);
+      transition: all 0.3s;
+    }
+    .step-content:hover {
+      transform: translateX(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .step-content h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .step-content p {
+      color: var(--ink-muted);
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    /* ====================================================
+       معاينة مصغّرة للـ popup
+    ==================================================== */
+    .popup-showcase {
+      background: linear-gradient(135deg, var(--ink) 0%, var(--red-deeper) 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .popup-showcase .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .popup-showcase .section-title { color: white; }
+    .popup-showcase .eyebrow {
+      background: rgba(255,255,255,0.1);
+      color: #fecaca;
+    }
+    .popup-showcase .section-sub {
+      color: rgba(255,255,255,0.75);
+    }
+
+    .popup-mockup {
+      background: #0f172a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+      max-width: 360px;
+      margin: 0 auto;
+      transform: perspective(1200px) rotateY(-8deg) rotateX(4deg);
+      transition: transform 0.6s;
+    }
+    .popup-mockup:hover {
+      transform: perspective(1200px) rotateY(-2deg) rotateX(1deg) scale(1.03);
+    }
+
+    .mockup-hero {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 4px 12px;
+      margin-bottom: 8px;
+    }
+    .mockup-logo {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      font-size: 20px;
+      font-family: Arial;
+    }
+    .mockup-title {
+      font-weight: 800;
+      font-size: 17px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .mockup-site {
+      font-size: 11px;
+      color: #94a3b8;
+      direction: ltr;
+    }
+
+    .mockup-toggle {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--green), #15803d);
+      color: white;
+      box-shadow: 0 10px 30px rgba(34,197,94,0.3);
+      margin-bottom: 12px;
+      animation: glow-green 3s ease-in-out infinite;
+    }
+    @keyframes glow-green {
+      0%, 100% { box-shadow: 0 10px 30px rgba(34,197,94,0.3); }
+      50% { box-shadow: 0 15px 40px rgba(34,197,94,0.5); }
+    }
+    .mockup-toggle-icon {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .mockup-toggle-text h4 {
+      font-size: 14px; font-weight: 800; margin-bottom: 2px;
+    }
+    .mockup-toggle-text p {
+      font-size: 11px; opacity: 0.9;
+    }
+
+    .mockup-card {
+      background: #1e293b;
+      border: 1px solid rgba(148,163,184,0.15);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .mockup-card-h {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .mockup-card-h h5 {
+      font-size: 13px; color: #f1f5f9;
+    }
+    .mockup-card-h .val {
+      font-size: 11px;
+      color: #22c55e;
+      background: rgba(34,197,94,0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .mockup-range {
+      height: 4px;
+      background: #334155;
+      border-radius: 2px;
+      position: relative;
+    }
+    .mockup-range::after {
+      content: '';
+      position: absolute;
+      inset-inline-start: 0;
+      top: 0;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #15803d);
+      border-radius: 2px;
+    }
+    .mockup-range::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: 55%;
+      top: -4px;
+      width: 12px;
+      height: 12px;
+      background: linear-gradient(135deg, #22c55e, #15803d);
+      border-radius: 50%;
+      transform: translateX(50%);
+      box-shadow: 0 2px 6px rgba(34,197,94,0.5);
+    }
+
+    /* ====================================================
+       الخصوصية
+    ==================================================== */
+    .privacy {
+      background: var(--white);
+    }
+    .privacy-list {
+      list-style: none;
+      max-width: 720px;
+      margin: 48px auto 0;
+      display: grid;
+      gap: 14px;
+    }
+    .privacy-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--cream);
+      border: 1px solid rgba(190,18,60,0.08);
+      border-radius: 14px;
+      transition: all 0.3s;
+    }
+    .privacy-item:hover {
+      background: var(--rose-softer);
+      border-color: rgba(190,18,60,0.2);
+      transform: translateX(-4px);
+    }
+    .privacy-check {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--green), #15803d);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(34,197,94,0.25);
+    }
+    .privacy-text {
+      font-size: 17px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+
+    /* ====================================================
+       زر سياسة الخصوصية
+    ==================================================== */
+    .privacy-cta {
+      margin-top: 40px;
+    }
+    .btn-privacy {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--white);
+      color: var(--red-dark);
+      border: 2px solid var(--red-dark);
+      border-radius: 14px;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(.2,.8,.2,1);
+      box-shadow: 0 4px 14px rgba(190, 18, 60, 0.1);
+    }
+    .btn-privacy:hover {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(190, 18, 60, 0.3);
+    }
+
+    /* ====================================================
+       سياسة الخصوصية الكاملة
+    ==================================================== */
+    .privacy-full {
+      background: linear-gradient(180deg, var(--cream-2) 0%, var(--cream) 100%);
+      scroll-margin-top: 20px;
+    }
+
+    .pp-card {
+      max-width: 820px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid rgba(190, 18, 60, 0.1);
+      border-radius: 24px;
+      padding: 56px 52px;
+      box-shadow: 0 20px 60px rgba(190, 18, 60, 0.08);
+    }
+
+    .pp-header {
+      text-align: center;
+      padding-bottom: 32px;
+      margin-bottom: 32px;
+      border-bottom: 2px solid rgba(190, 18, 60, 0.1);
+    }
+
+    .pp-logo {
+      margin-bottom: 16px;
+    }
+
+    .pp-header h2 {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+
+    .pp-meta {
+      color: var(--ink-muted);
+      font-size: 14px;
+    }
+
+    .pp-highlight {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.06), rgba(190, 18, 60, 0.04));
+      border: 1px solid rgba(190, 18, 60, 0.15);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      font-size: 16px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+    .pp-highlight strong {
+      color: var(--red-dark);
+      font-weight: 800;
+    }
+
+    .pp-h {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--ink);
+      margin: 28px 0 14px;
+      padding-right: 14px;
+      border-right: 4px solid var(--red);
+    }
+
+    .pp-p {
+      font-size: 16px;
+      color: var(--ink-muted);
+      line-height: 1.9;
+      margin-bottom: 12px;
+    }
+
+    .pp-p code, .pp-list code {
+      background: rgba(190, 18, 60, 0.08);
+      color: var(--red-dark);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      direction: ltr;
+      display: inline-block;
+    }
+
+    .pp-list {
+      list-style: none;
+      margin: 12px 0;
+    }
+
+    .pp-list li {
+      padding: 12px 18px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15.5px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+    .pp-list li::before {
+      font-weight: 900;
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pp-list.yes li {
+      background: rgba(34, 197, 94, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+    .pp-list.yes li::before {
+      content: '✓';
+      color: var(--green);
+    }
+    .pp-list.no li {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+    }
+    .pp-list.no li::before {
+      content: '✕';
+      color: var(--red);
+    }
+    .pp-list strong {
+      color: var(--red-dark);
+      font-weight: 700;
+    }
+
+    .pp-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(190, 18, 60, 0.1);
+      text-align: center;
+      font-size: 14px;
+      color: var(--ink-muted);
+    }
+    .pp-footer p {
+      margin-bottom: 4px;
+    }
+    .pp-footer strong {
+      color: var(--red-dark);
+    }
+
+    @media (max-width: 640px) {
+      .pp-card { padding: 36px 24px; }
+      .pp-header h2 { font-size: 26px; }
+      .pp-h { font-size: 19px; }
+    }
+
+    /* ====================================================
+       تصميم: شؤون إسلامية
+    ==================================================== */
+    .credit-section {
+      background: linear-gradient(135deg, var(--cream-2) 0%, var(--rose-softer) 100%);
+    }
+    .credit-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 60px 40px;
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(190,18,60,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .credit-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top, rgba(239,68,68,0.06), transparent 70%);
+      pointer-events: none;
+    }
+    .credit-star {
+      font-size: 48px;
+      color: var(--red-dark);
+      margin-bottom: 16px;
+      animation: star-spin 12s linear infinite;
+      display: inline-block;
+    }
+    @keyframes star-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .credit-wrap h2 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .credit-wrap h2 strong {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .credit-wrap p {
+      font-size: 17px;
+      color: var(--ink-muted);
+      line-height: 1.9;
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ====================================================
+       CTA النهائي
+    ==================================================== */
+    .cta-final {
+      position: relative;
+      background: linear-gradient(135deg, #1a0a0a 0%, var(--red-deeper) 50%, var(--red-dark) 100%);
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+      overflow: hidden;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(251, 191, 36, 0.15), transparent 50%),
+                  radial-gradient(circle at 80% 50%, rgba(236, 72, 153, 0.15), transparent 50%);
+      pointer-events: none;
+    }
+    .cta-final .container {
+      position: relative;
+      z-index: 1;
+    }
+    .cta-final h2 {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 900;
+      margin-bottom: 16px;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      background: linear-gradient(135deg, #fff, #fecaca);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .cta-final p {
+      font-size: 19px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 40px;
+    }
+    .cta-final .btn-primary {
+      font-size: 18px;
+      padding: 20px 44px;
+    }
+
+    /* ====================================================
+       Footer
+    ==================================================== */
+    footer {
+      background: #0a0505;
+      color: rgba(255,255,255,0.5);
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    footer a {
+      color: #fca5a5;
+      text-decoration: none;
+      margin: 0 4px;
+    }
+    footer a:hover { color: var(--red); }
+    footer strong {
+      color: #fbbf24;
+      font-weight: 700;
+    }
+
+    /* ====================================================
+       Responsive
+    ==================================================== */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+      .hero-sub { margin: 0 auto 36px; }
+      .hero-ctas { justify-content: center; }
+      .demo-card { transform: none; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .arrow-connect { display: none; }
+      .popup-showcase .container { grid-template-columns: 1fr; gap: 40px; }
+      .popup-mockup { transform: none; }
+      .section { padding: 80px 20px; }
+    }
+
+    @media (max-width: 520px) {
+      .hero { padding: 80px 16px 60px; }
+      .btn { padding: 14px 24px; font-size: 14px; }
+      .step { grid-template-columns: 1fr; gap: 16px; text-align: center; }
+      .steps-wrapper::before { display: none; }
+      .step-num { margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ====================================================
+       الهيرو
+  ==================================================== -->
+  <section class="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          الإصدار 1.0 — مجاني بالكامل
+        </div>
+        <h1>RTL Free</h1>
+        <p class="hero-sub">
+          إصلاح <strong>اتجاه النصوص العربية</strong> على أي موقع بضغطة واحدة.
+          مع خطوط عربية منتقاة، وكاشف ذكي لخطوط نظامك، وتحكّم دقيق في كل التفاصيل.
+        </p>
+        <div class="hero-ctas">
+          <a href="#install" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            ثبّت الإضافة الآن
+          </a>
+          <a href="#features" class="btn btn-ghost">
+            اعرف أكثر
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+        </div>
+        <div class="hero-credit">
+          تصميم: <strong>شؤون إسلامية</strong>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="demo-card">
+          <div class="demo-tabs">
+            <span class="demo-dot r"></span>
+            <span class="demo-dot y"></span>
+            <span class="demo-dot g"></span>
+            <span class="demo-title">shuounislamiya.org</span>
+          </div>
+
+          <div class="demo-row demo-before">
+            <span class="demo-tag">قبل</span>
+            <div class="demo-text">.اكتب لي مقالًا قصيرًا عن أهمية القراءة</div>
+          </div>
+
+          <div class="demo-row demo-after">
+            <span class="demo-tag">بعد</span>
+            <div class="demo-text">اكتب لي مقالًا قصيرًا عن أهمية القراءة.</div>
+          </div>
+
+          <div class="demo-row demo-after" style="background:rgba(239,245,255,0.03); border-color:rgba(148,163,184,0.15);">
+            <div class="demo-text" style="font-family:'IBM Plex Sans Arabic';">
+              بضغطة واحدة — كل شيء يصبح في مكانه الصحيح، مع خط عربي أنيق ومريح.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       قسم المشكلة
+  ==================================================== -->
+  <section class="section problem-section" id="problem">
+    <div class="container text-center">
+      <span class="eyebrow reveal">المشكلة</span>
+      <h2 class="section-title reveal reveal-delay-1">يعرفها <span class="highlight">كلّ من يكتب بالعربية</span></h2>
+      <p class="section-sub reveal reveal-delay-2">
+        مواقع الذكاء الاصطناعي والمنتديات والتطبيقات كثيرًا ما تعرض النصوص العربية من اليسار لليمين،
+        فتأتي علامات الترقيم في المكان الخاطئ، ويصبح النص مرهقًا للقراءة.
+      </p>
+
+      <div class="problem-grid" style="text-align: start;">
+        <div class="compare-card bad reveal reveal-delay-2">
+          <span class="label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            قبل RTL Free
+          </span>
+          <div class="compare-text">
+            ,القراءة نعمة عظيمة وغذاء للعقل<br>
+            .فمن قرأ كتابًا فتح لنفسه نافذة جديدة<br>
+            !ما أجمل الكتاب
+          </div>
+          <div class="arrow-connect">←</div>
+        </div>
+
+        <div class="compare-card good reveal reveal-delay-3">
+          <span class="label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            مع RTL Free
+          </span>
+          <div class="compare-text">
+            القراءة نعمة عظيمة وغذاء للعقل،<br>
+            فمن قرأ كتابًا فتح لنفسه نافذة جديدة.<br>
+            ما أجمل الكتاب!
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       المميزات
+  ==================================================== -->
+  <section class="section features" id="features">
+    <div class="container text-center">
+      <span class="eyebrow reveal">المميزات</span>
+      <h2 class="section-title reveal reveal-delay-1">إضافة <span class="highlight">احترافية</span> بكل تفاصيلها</h2>
+      <p class="section-sub reveal reveal-delay-2">كل ما تحتاجه لقراءة وكتابة عربية مريحة — مجتمع في إضافة واحدة.</p>
+
+      <div class="features-grid" style="text-align: start;">
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>تفعيل بزرّ واحد</h3>
+          <p>اضغط الأيقونة الحمراء على أي موقع، ثم زرّ التفعيل الكبير. أخضر = مُفعَّل، أحمر = معطَّل. بلا تعقيد.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2zM14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg>
+          </div>
+          <h3>محرك كشف ذكي</h3>
+          <p>يكتشف النصوص العربية والعبرية والفارسية والأردية تلقائيًا، ويُطبّق RTL عليها دون أن يلمس الإنجليزية أو الأكواد.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-exclusive">ميزة حصرية</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <h3>كاشف خطوط النظام</h3>
+          <p>اكتشف تلقائيًا كل الخطوط العربية المثبَّتة على جهازك مع معاينة حيّة لكل خط — لا توجد هذه الميزة في أي إضافة مشابهة.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          </div>
+          <h3>خطوط منتقاة</h3>
+          <p>IBM Plex Sans Arabic وTajawal وAmiri وVazirmatn — خطوط احترافية تُحمَّل تلقائيًا عند الاختيار.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3>يعمل في كل مكان</h3>
+          <p>مواقع الذكاء الاصطناعي، والمدوّنات، والمنتديات، ومحرّرات النصوص، والمواقع الإخبارية — أي موقع تفتحه.</p>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3>خصوصية كاملة</h3>
+          <p>بدون تتبع، بدون خوادم، بدون بيانات تُرسَل. كل شيء يحدث داخل متصفحك فقط.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       معاينة النافذة المنبثقة
+  ==================================================== -->
+  <section class="section popup-showcase">
+    <div class="container">
+      <div class="reveal">
+        <span class="eyebrow">التحكم الكامل</span>
+        <h2 class="section-title">لوحة تحكم <span style="color:#fbbf24">أنيقة</span></h2>
+        <p class="section-sub">
+          واجهة عربية بالكامل — زرّ كبير للتفعيل، خطوط منتقاة، تحكّم بالحجم والتباعد،
+          وكاشف خطوط النظام. كل شيء في نقرة.
+        </p>
+        <a href="#install" class="btn btn-primary">
+          جرّبها الآن
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="popup-mockup">
+          <div class="mockup-hero">
+            <div class="mockup-logo">R</div>
+            <div>
+              <div class="mockup-title">RTL Free</div>
+              <div class="mockup-site">shuounislamiya.org</div>
+            </div>
+          </div>
+          <div class="mockup-toggle">
+            <div class="mockup-toggle-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="mockup-toggle-text">
+              <h4>مُفعَّل على هذا الموقع</h4>
+              <p>اضغط للتعطيل</p>
+            </div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-h"><h5>الخط العربي</h5></div>
+            <div style="color:#94a3b8; font-size:12px; padding: 6px 10px; background:#0f172a; border-radius: 6px; direction: ltr;">IBM Plex Sans Arabic</div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-h"><h5>حجم الخط</h5><span class="val">115%</span></div>
+            <div class="mockup-range"></div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-h"><h5>تباعد الأسطر</h5><span class="val">1.8</span></div>
+            <div class="mockup-range" style="opacity:0.7"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       كيف تعمل
+  ==================================================== -->
+  <section class="section how" id="install">
+    <div class="container text-center">
+      <span class="eyebrow reveal">طريقة الاستخدام</span>
+      <h2 class="section-title reveal reveal-delay-1">ثلاث خطوات <span class="highlight">فقط</span></h2>
+      <p class="section-sub reveal reveal-delay-2">من التثبيت إلى الاستخدام في أقل من دقيقة.</p>
+
+      <div class="steps-wrapper">
+
+        <div class="step reveal">
+          <div class="step-num">١</div>
+          <div class="step-content">
+            <h3>ثبّت الإضافة</h3>
+            <p>حمّل الإضافة من متجر Chrome الرسمي — ثوانٍ معدودة ولا تحتاج تسجيلًا.</p>
+          </div>
+        </div>
+
+        <div class="step reveal reveal-delay-1">
+          <div class="step-num">٢</div>
+          <div class="step-content">
+            <h3>اضغط أيقونة <span style="color:var(--red-dark)">R</span> الحمراء</h3>
+            <p>ستجدها في أعلى يمين المتصفح. انقرها على أي موقع تريد إصلاح اتجاه نصّه.</p>
+          </div>
+        </div>
+
+        <div class="step reveal reveal-delay-2">
+          <div class="step-num">٣</div>
+          <div class="step-content">
+            <h3>اضغط الزرّ الكبير للتفعيل</h3>
+            <p>يتحوّل للأخضر — وتعمل الإضافة فورًا. عدِّل الخط والحجم حسب رغبتك من نفس النافذة.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       الخصوصية
+  ==================================================== -->
+  <section class="section privacy" id="privacy">
+    <div class="container text-center">
+      <span class="eyebrow reveal">التزامنا</span>
+      <h2 class="section-title reveal reveal-delay-1">خصوصيتك <span class="highlight">محفوظة</span></h2>
+      <p class="section-sub reveal reveal-delay-2">لا بيانات، لا تتبع، لا إعلانات. أبدًا.</p>
+
+      <ul class="privacy-list">
+        <li class="privacy-item reveal">
+          <div class="privacy-check">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="privacy-text"><strong>لا تجمع أي بيانات شخصية</strong> — لا اسم، لا بريد، لا تاريخ تصفّح.</div>
+        </li>
+        <li class="privacy-item reveal reveal-delay-1">
+          <div class="privacy-check">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="privacy-text">كل الإعدادات <strong>محفوظة محليًا</strong> على جهازك فقط.</div>
+        </li>
+        <li class="privacy-item reveal reveal-delay-2">
+          <div class="privacy-check">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="privacy-text"><strong>لا تتصل بأي خادم</strong> — الاستثناء الوحيد: Google Fonts، فقط إن اخترت خطًا.</div>
+        </li>
+        <li class="privacy-item reveal">
+          <div class="privacy-check">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="privacy-text">الإضافة <strong>معطَّلة افتراضيًا</strong> — تعمل فقط على المواقع التي تُفعّلها بنفسك.</div>
+        </li>
+        <li class="privacy-item reveal reveal-delay-1">
+          <div class="privacy-check">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="privacy-text"><strong>بدون إعلانات ولا تتبع</strong> من أي نوع.</div>
+        </li>
+        <li class="privacy-item reveal reveal-delay-2">
+          <div class="privacy-check">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="privacy-text">الكود <strong>مفتوح للمراجعة</strong> — يمكنك تفحُّص كل سطر.</div>
+        </li>
+      </ul>
+
+      <div class="privacy-cta reveal">
+        <a href="https://rtlfree.shuounislamiya.org/privacy.html" class="btn-privacy">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="14" x2="15" y2="14"/>
+            <line x1="9" y1="18" x2="15" y2="18"/>
+          </svg>
+          قراءة سياسة الخصوصية الكاملة
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       سياسة الخصوصية الكاملة
+  ==================================================== -->
+  <section class="section privacy-full" id="privacy-policy">
+    <div class="container">
+      <div class="pp-card">
+        <div class="pp-header">
+          <div class="pp-logo">
+            <svg viewBox="0 0 48 48" width="48" height="48">
+              <defs>
+                <linearGradient id="ppG" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ef4444"/>
+                  <stop offset="100%" stop-color="#be123c"/>
+                </linearGradient>
+              </defs>
+              <rect width="48" height="48" rx="12" fill="url(#ppG)"/>
+              <text x="24" y="34" text-anchor="middle" fill="white" font-size="28" font-weight="800" font-family="Arial, sans-serif">R</text>
+            </svg>
+          </div>
+          <h2>سياسة الخصوصية الكاملة</h2>
+          <p class="pp-meta">إضافة RTL Free — الإصدار 1.0</p>
+        </div>
+
+        <div class="pp-highlight">
+          <strong>باختصار:</strong> الإضافة لا تجمع أي بيانات شخصية، ولا تُرسل أي معلومات إلى أي خادم، ولا تتتبّع تصفّحك. كل شيء يحدث محليًا داخل متصفحك فقط.
+        </div>
+
+        <h3 class="pp-h">١. البيانات التي لا نجمعها</h3>
+        <ul class="pp-list no">
+          <li>لا نجمع اسمك أو بريدك الإلكتروني أو أي معلومات شخصية.</li>
+          <li>لا نُسجّل تاريخ تصفّحك أو المواقع التي تزورها.</li>
+          <li>لا نقرأ محتوى صفحاتك أو نصوصها أو نُرسلها إلى أي مكان.</li>
+          <li>لا نستخدم أي أدوات تحليلات (Google Analytics أو غيرها).</li>
+          <li>لا نعرض أي إعلانات.</li>
+          <li>لا نشارك أو نبيع أي بيانات — ببساطة لأنها ليست لدينا.</li>
+        </ul>
+
+        <h3 class="pp-h">٢. ما تحفظه الإضافة محليًا على جهازك فقط</h3>
+        <p class="pp-p">تستخدم الإضافة <code>chrome.storage.sync</code> لحفظ تفضيلاتك على جهازك (وتزامنها عبر حسابك في Chrome إن فعّلت المزامنة):</p>
+        <ul class="pp-list yes">
+          <li>قائمة المواقع التي فعّلت الإضافة عليها (نطاقات فقط).</li>
+          <li>الخط المختار وحجمه وتباعد أسطره وسُمكه.</li>
+          <li>خيار إخفاء التشكيل ونوع الأرقام.</li>
+          <li>اسم الخط المخصَّص إن أدخلتَ واحدًا.</li>
+        </ul>
+        <p class="pp-p">هذه الإعدادات لا تخرج من متصفحك أبدًا إلى أي خادم خارجي تابع لنا — لا نمتلك أي خادم أصلًا.</p>
+
+        <h3 class="pp-h">٣. الاتصالات الخارجية الوحيدة</h3>
+        <p class="pp-p">هناك اتصال خارجي واحد فقط، وهو <strong>اختياري بالكامل</strong>:</p>
+        <ul class="pp-list yes">
+          <li><strong>Google Fonts</strong> — فقط عند اختيارك أحد الخطوط المنتقاة (Tajawal، Amiri، IBM Plex Sans Arabic، Vazirmatn). يتم تحميل ملف الخط من <code>fonts.googleapis.com</code>.</li>
+        </ul>
+        <p class="pp-p">إذا اخترت «خط الموقع الافتراضي» (وهو الخيار الافتراضي) أو خطًا مخصّصًا من نظامك، فلن يُرسَل أي طلب إلى Google.</p>
+
+        <h3 class="pp-h">٤. الصلاحيات المطلوبة ولماذا</h3>
+        <ul class="pp-list yes">
+          <li><strong>storage:</strong> لحفظ تفضيلاتك محليًا.</li>
+          <li><strong>activeTab:</strong> لمعرفة نطاق الصفحة الحالية حتى يعمل زرّ التفعيل.</li>
+          <li><strong>scripting:</strong> لعرض إشعار صغير عند تغيير الخط من قائمة النقر الأيمن.</li>
+          <li><strong>contextMenus:</strong> لإضافة خيارات في قائمة النقر الأيمن.</li>
+          <li><strong>host_permissions</strong> <code>&lt;all_urls&gt;</code>: لتتمكن الإضافة من العمل على أي موقع تفعّلها عليه. الإضافة <strong>معطَّلة افتراضيًا</strong> ولا تعمل إلا على المواقع التي تختار تفعيلها بنفسك.</li>
+        </ul>
+
+        <h3 class="pp-h">٥. حقوقك</h3>
+        <ul class="pp-list yes">
+          <li>يمكنك حذف جميع إعداداتك من صفحة «الإعدادات المتقدمة» ← «النسخ الاحتياطي» ← «إعادة التعيين».</li>
+          <li>يمكنك إزالة الإضافة كاملة من <code>chrome://extensions</code> وستُحذف كل البيانات المحلية تلقائيًا.</li>
+          <li>يمكنك تصدير إعداداتك كملف JSON في أي وقت.</li>
+        </ul>
+
+        <h3 class="pp-h">٦. الشفافية الكاملة</h3>
+        <p class="pp-p">الكود المصدري للإضافة متاح للمراجعة. يمكنك قراءة كل سطر ومعرفة ما تفعله الإضافة بدقة — لا توجد ملفات مخفية أو مُشفَّرة.</p>
+
+        <h3 class="pp-h">٧. تغييرات على هذه السياسة</h3>
+        <p class="pp-p">إذا حدث أي تغيير في طريقة تعامل الإضافة مع البيانات، سنُحدِّث هذه الصفحة ونُشعر المستخدمين عبر تحديث الإضافة في Chrome Web Store.</p>
+
+        <h3 class="pp-h">٨. التواصل</h3>
+        <p class="pp-p">لأي استفسار يتعلق بالخصوصية أو الإضافة، يمكنكم التواصل عبر موقع <strong>شؤون إسلامية</strong>.</p>
+
+        <div class="pp-footer">
+          <p>تصميم وإصدار: <strong>شؤون إسلامية</strong> — خدمةً للمحتوى العربي.</p>
+          <p>آخر تحديث: أبريل 2026 · الإصدار 1.0</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       تصميم: شؤون إسلامية
+  ==================================================== -->
+  <section class="section credit-section">
+    <div class="container">
+      <div class="credit-wrap reveal">
+        <div class="credit-star">&#9770;</div>
+        <h2>تصميم وإصدار <strong>شؤون إسلامية</strong></h2>
+        <p>
+          هذه الإضافة صدقة جارية ومبادرة مجانية — خدمةً للمحتوى العربي ودعمًا لسهولة القراءة لطلاب العلم
+          وأهل اللسان العربي على جميع المواقع. نسأل الله أن يجعلها في ميزان حسنات كل من ساهم وكل من استفاد.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       CTA النهائي
+  ==================================================== -->
+  <section class="cta-final">
+    <div class="container">
+      <h2>جاهز لتجربة عربية <br>بلا عيوب؟</h2>
+      <p>مجاني بالكامل · مفتوح المصدر · يحترم خصوصيتك</p>
+      <a href="#" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
+        ثبّت RTL Free الآن
+      </a>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       Footer
+  ==================================================== -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        RTL Free v1.0 — تصميم: <strong>شؤون إسلامية</strong>
+      </div>
+      <div>
+        <a href="#features">المميزات</a>
+        ·
+        <a href="#install">التثبيت</a>
+        ·
+        <a href="#problem">لماذا؟</a>
+        ·
+        <a href="https://rtlfree.shuounislamiya.org/privacy.html">سياسة الخصوصية</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // شريط التقدم العلوي
+    const progress = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      progress.style.width = pct + '%';
+    }, { passive: true });
+
+    // تأثير الدخول عند التمرير
+    const observer = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // تأثير الماوس الخفيف على البطاقة التوضيحية
+    const demo = document.querySelector('.demo-card');
+    if (demo) {
+      demo.addEventListener('mousemove', (e) => {
+        const r = demo.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        demo.style.transform = `rotate(${-1 + x * 2}deg) translateY(${y * 4}px)`;
+      });
+      demo.addEventListener('mouseleave', () => {
+        demo.style.transform = '';
+      });
+    }
+  </script>
+
+</body>
+</html>

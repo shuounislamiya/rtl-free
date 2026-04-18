@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="_template.css">
+<style>
+  .stage { background: #0a0505; }
+
+  .headline-top {
+    position: absolute;
+    top: 40px;
+    left: 0; right: 0;
+    text-align: center;
+    color: white;
+    z-index: 2;
+  }
+  .headline-top .eyebrow {
+    display: inline-block;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(190,18,60,0.15));
+    border: 1px solid rgba(239,68,68,0.4);
+    color: #fca5a5;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .headline-top h1 {
+    font-family: 'Tajawal';
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #fff, #fecaca);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 6px;
+  }
+  .headline-top p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* Features grid */
+  .features-grid {
+    position: absolute;
+    top: 180px;
+    left: 40px;
+    right: 40px;
+    bottom: 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .f-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .f-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(239, 68, 68, 0.08), transparent 50%);
+    pointer-events: none;
+  }
+
+  .f-icon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, #ef4444, #be123c);
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25);
+  }
+
+  .f-card h3 {
+    font-family: 'Tajawal';
+    font-size: 21px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  .f-card p {
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.75;
+  }
+
+  .f-card.exclusive::after {
+    content: 'حصرية';
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #451a03;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+  }
+
+  .bottom-tag {
+    position: absolute;
+    bottom: 28px;
+    left: 0; right: 0;
+    text-align: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+  }
+  .bottom-tag strong { color: #fbbf24; font-weight: 800; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="headline-top">
+      <span class="eyebrow">◆ المميزات</span>
+      <h1>كل ما تحتاجه لعربية مريحة</h1>
+      <p>ست مميّزات رئيسية في إضافة واحدة — بلا تعقيد، بلا إعلانات.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="f-card">
+        <div class="f-icon">✓</div>
+        <h3>تفعيل بزرّ واحد</h3>
+        <p>زرّ كبير واضح لتفعيل/تعطيل الإضافة على أي موقع. أخضر = يعمل. أحمر = متوقف.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-icon">◉</div>
+        <h3>كشف ذكي</h3>
+        <p>يتعرّف على النصوص العربية والعبرية والفارسية والأردية تلقائيًا دون لمس الإنجليزية.</p>
+      </div>
+
+      <div class="f-card exclusive">
+        <div class="f-icon">⊙</div>
+        <h3>كاشف خطوط النظام</h3>
+        <p>اكتشف كل الخطوط العربية المثبّتة على جهازك بمعاينة حيّة — ميزة حصرية.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-icon">Aa</div>
+        <h3>خطوط منتقاة</h3>
+        <p>IBM Plex Sans Arabic · Tajawal · Amiri · Vazirmatn — تُحمَّل عند الطلب فقط.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-icon">◊</div>
+        <h3>يعمل في كل مكان</h3>
+        <p>مواقع الذكاء الاصطناعي، المدونات، المنتديات، محرّرات النصوص — أي موقع تفتحه.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-icon">⛨</div>
+        <h3>خصوصية تامّة</h3>
+        <p>بدون تتبّع، بدون خوادم، بدون بيانات تُرسَل. كل شيء يحدث داخل متصفّحك.</p>
+      </div>
+
+    </div>
+
+    <div class="bottom-tag">RTL Free v1.0 — تصميم: <strong>شؤون إسلامية</strong></div>
+  </div>
+</body>
+</html>

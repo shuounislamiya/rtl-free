@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "RTL Free — إصلاح الاتجاه العربي الاحترافي",
+  "short_name": "RTL Free",
+  "version": "1.0.0",
+  "description": "إصلاح اتجاه النصوص العربية تلقائيًا على أي موقع، بزر واحد، مع خطوط منتقاة وتحكّم كامل. تصميم: شؤون إسلامية.",
+  "author": "شؤون إسلامية",
+
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "contextMenus"
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "RTL Free — إصلاح الاتجاه العربي",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["injected.css"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["injected.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

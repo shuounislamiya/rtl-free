@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="_template.css">
+<style>
+  .side-text {
+    position: absolute;
+    top: 100px;
+    left: 80px;
+    width: 480px;
+    color: white;
+  }
+  .side-text .eyebrow {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 16px;
+  }
+  .side-text h1 {
+    font-family: 'Tajawal';
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, #fff, #fecaca);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .side-text h1 span {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .side-text > p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 24px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .stat-card {
+    padding: 18px 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+  }
+  .stat-val {
+    font-family: 'Tajawal';
+    font-size: 34px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fbbf24, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* Popup showing typography controls */
+  .popup-typo {
+    position: absolute;
+    top: 80px;
+    right: 100px;
+    width: 420px;
+    background: #0f172a;
+    border: 1px solid rgba(148,163,184,0.15);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    color: #f1f5f9;
+  }
+
+  .weight-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 10px;
+    color: #64748b;
+  }
+
+  .quick-sizes {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .size-btn {
+    background: #0f172a;
+    color: #94a3b8;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 6px 4px;
+    font-size: 11px;
+    text-align: center;
+  }
+  .size-btn.active {
+    background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(21,128,61,0.15));
+    color: #22c55e;
+    border-color: #22c55e;
+  }
+
+  .bottom-tag {
+    position: absolute;
+    bottom: 30px;
+    left: 0; right: 0;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 14px;
+  }
+  .bottom-tag strong { color: #fbbf24; font-weight: 800; }
+</style>
+</head>
+<body>
+  <div class="stage bg-dark">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="side-text">
+      <span class="eyebrow">✧ الطباعة الاحترافية</span>
+      <h1>تحكّم <span>كامل</span> بكل تفصيل</h1>
+      <p>عدِّل حجم الخط والسُمك وتباعد الأسطر والأحرف بدقّة. كل تعديل يُطبَّق فورًا ويُحفَظ محليًا.</p>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-val">60–200%</div>
+          <div class="stat-label">حجم الخط</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">300–800</div>
+          <div class="stat-label">سُمك الخط</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">1.0–3.0</div>
+          <div class="stat-label">تباعد الأسطر</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">0.05→0.2</div>
+          <div class="stat-label">تباعد الأحرف</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup-typo">
+      <div class="popup-hero">
+        <div class="popup-brand">
+          <div class="popup-logo">R</div>
+          <div class="popup-title">
+            <h1>RTL Free</h1>
+            <p>shuounislamiya.org</p>
+          </div>
+        </div>
+        <div class="popup-settings-icon">⚙</div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>حجم الخط</h3><span class="val">115%</span></div>
+        <div class="range-mock" style="--w: 45%"></div>
+        <div class="quick-sizes">
+          <div class="size-btn">ص</div>
+          <div class="size-btn">عادي</div>
+          <div class="size-btn active">ك</div>
+          <div class="size-btn">كك</div>
+          <div class="size-btn">ضخم</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>تباعد الأسطر</h3><span class="val">1.8</span></div>
+        <div class="range-mock" style="--w: 40%"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>تباعد الأحرف</h3><span class="val">0.02</span></div>
+        <div class="range-mock" style="--w: 35%"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>سُمك الخط</h3><span class="val">500</span></div>
+        <div class="range-mock" style="--w: 40%"></div>
+        <div class="weight-scale">
+          <span>رفيع</span><span>عادي</span><span>عريض</span><span>أسود</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-tag">تصميم: <strong>شؤون إسلامية</strong></div>
+  </div>
+</body>
+</html>

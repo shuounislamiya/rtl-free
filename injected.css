@@ -1,0 +1,43 @@
+/**
+ * RTL Free — الأنماط الأساسية
+ * يتم حقن أنماط إضافية ديناميكيًا عبر content.js
+ */
+
+/* استخدام unicode-bidi: plaintext كشبكة أمان للنصوص */
+html[data-rtlfree-active="1"] [data-rtlfree="rtl"] {
+  unicode-bidi: plaintext;
+}
+
+/* انتقال سلس عند تغيير الاتجاه */
+html[data-rtlfree-active="1"] [data-rtlfree="rtl"] {
+  transition: font-family 0.15s ease, font-size 0.15s ease, line-height 0.15s ease;
+}
+
+/* تصحيح المسافات في القوائم العربية */
+html[data-rtlfree-active="1"] [data-rtlfree="rtl"][dir="auto"] > ul,
+html[data-rtlfree-active="1"] [data-rtlfree="rtl"][dir="auto"] > ol {
+  list-style-position: inside;
+}
+
+/* حقول الإدخال */
+html[data-rtlfree-active="1"] [data-rtlfree-input="1"] {
+  unicode-bidi: plaintext;
+}
+
+/* حماية الأيقونات والصور من التقلب */
+html[data-rtlfree-active="1"] [data-rtlfree="rtl"] svg,
+html[data-rtlfree-active="1"] [data-rtlfree="rtl"] img {
+  direction: ltr;
+}
+
+/* تصحيح الأزرار والعناصر التفاعلية */
+html[data-rtlfree-active="1"] button[data-rtlfree="rtl"],
+html[data-rtlfree-active="1"] a[data-rtlfree="rtl"] {
+  unicode-bidi: plaintext;
+}
+
+/* تصحيح عرض الأرقام العربية مع النصوص */
+html[data-rtlfree-active="1"] [data-rtlfree="rtl"] {
+  font-variant-numeric: normal;
+  font-feature-settings: "liga" 1, "calt" 1, "kern" 1;
+}

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="_template.css">
+<style>
+  .headline-center {
+    position: absolute;
+    top: 60px;
+    left: 0; right: 0;
+    text-align: center;
+    color: white;
+    z-index: 2;
+  }
+  .headline-center .eyebrow {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 14px;
+  }
+  .headline-center h1 {
+    font-family: 'Tajawal';
+    font-size: 54px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    background: linear-gradient(135deg, #fff 30%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+  .headline-center h1 span {
+    color: #fbbf24;
+    -webkit-text-fill-color: #fbbf24;
+  }
+  .headline-center p {
+    font-size: 17px;
+    color: rgba(255,255,255,0.85);
+  }
+  .compare-wrap {
+    position: absolute;
+    top: 240px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    width: 1140px;
+  }
+  .compare-card {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 24px;
+    backdrop-filter: blur(20px);
+    color: white;
+    position: relative;
+  }
+  .compare-card.bad {
+    border-color: rgba(239, 68, 68, 0.4);
+    background: rgba(239, 68, 68, 0.08);
+  }
+  .compare-card.good {
+    border-color: rgba(34, 197, 94, 0.4);
+    background: rgba(34, 197, 94, 0.08);
+  }
+  .compare-label {
+    position: absolute;
+    top: -14px;
+    right: 24px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+  }
+  .compare-card.bad .compare-label {
+    background: #ef4444;
+    color: white;
+  }
+  .compare-card.good .compare-label {
+    background: #22c55e;
+    color: white;
+  }
+  .compare-title {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 14px;
+    font-family: Consolas, monospace;
+    direction: ltr;
+    text-align: start;
+  }
+  .compare-card.bad .compare-text {
+    direction: ltr;
+    text-align: left;
+    font-size: 19px;
+    line-height: 2;
+  }
+  .compare-card.good .compare-text {
+    direction: rtl;
+    text-align: right;
+    font-size: 19px;
+    line-height: 2;
+  }
+  .arrow-middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #ef4444, #be123c);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 30px rgba(239, 68, 68, 0.4);
+    z-index: 3;
+    color: white;
+    font-size: 32px;
+    font-weight: 900;
+  }
+  .bottom-tag {
+    position: absolute;
+    bottom: 50px;
+    left: 0; right: 0;
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 16px;
+  }
+  .bottom-tag strong {
+    color: #fbbf24;
+    font-weight: 800;
+  }
+</style>
+</head>
+<body>
+  <div class="stage bg-dark">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="headline-center">
+      <span class="eyebrow">◆ كشف ذكي · إصلاح تلقائي</span>
+      <h1>قبل وبعد — <span>فرق واضح</span></h1>
+      <p>علامات الترقيم في مكانها، النصّ مقروء، والتجربة مريحة.</p>
+    </div>
+
+    <div class="compare-wrap">
+      <div class="compare-card bad">
+        <span class="compare-label">قبل</span>
+        <div class="compare-title">// shuounislamiya.org</div>
+        <div class="compare-text">
+          ,القراءة نعمة عظيمة وغذاء للعقل<br>
+          .فمن قرأ كتابًا فتح نافذة للمعرفة<br>
+          !ما أجمل الكتاب
+        </div>
+      </div>
+
+      <div class="compare-card good">
+        <span class="compare-label">بعد</span>
+        <div class="compare-title">// shuounislamiya.org</div>
+        <div class="compare-text">
+          القراءة نعمة عظيمة وغذاء للعقل،<br>
+          فمن قرأ كتابًا فتح نافذة للمعرفة.<br>
+          ما أجمل الكتاب!
+        </div>
+      </div>
+
+      <div class="arrow-middle">←</div>
+    </div>
+
+    <div class="bottom-tag">
+      بضغطة واحدة · تصميم: <strong>شؤون إسلامية</strong>
+    </div>
+  </div>
+</body>
+</html>

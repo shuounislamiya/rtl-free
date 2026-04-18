@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@500;700;800&family=Tajawal:wght@700;900&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 440px;
+  height: 280px;
+  overflow: hidden;
+  font-family: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+  direction: rtl;
+}
+
+.stage {
+  width: 440px;
+  height: 280px;
+  background: linear-gradient(135deg, #1a0a0a 0%, #3d0a14 40%, #881337 80%, #be123c 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.orb-a {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.7), transparent 70%);
+  filter: blur(50px);
+  top: -80px;
+  right: -80px;
+}
+
+.orb-b {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.45), transparent 70%);
+  filter: blur(40px);
+  bottom: -60px;
+  left: -60px;
+}
+
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.logo {
+  width: 96px;
+  height: 96px;
+  background: linear-gradient(135deg, #ef4444, #be123c);
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-weight: 900;
+  font-size: 56px;
+  flex-shrink: 0;
+  box-shadow: 0 20px 40px rgba(239, 68, 68, 0.45);
+  position: relative;
+  z-index: 2;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  color: white;
+  flex: 1;
+}
+
+.content h1 {
+  font-family: 'Tajawal';
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #fff 30%, #fecaca 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.content p {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #fbbf24;
+  font-weight: 700;
+  padding: 4px 12px;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 999px;
+}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="orb-a"></div>
+    <div class="orb-b"></div>
+    <div class="grid-lines"></div>
+
+    <div class="logo">R</div>
+
+    <div class="content">
+      <h1>RTL Free</h1>
+      <p>إصلاح اتجاه النصوص العربية على أي موقع — بضغطة واحدة.</p>
+      <span class="credit">✦ تصميم: شؤون إسلامية</span>
+    </div>
+  </div>
+</body>
+</html>
