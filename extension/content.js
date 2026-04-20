@@ -58,6 +58,17 @@
     'LABEL', 'LEGEND', 'CAPTION'
   ]);
 
+  // عناصر تظهر عادةً داخل سطر نص (بجوار عقد نصّية) — نستخدمها لاكتشاف
+  // الحاويات العامة (<div>، Custom Elements) التي تحوي سطر نص مختلط
+  // عربي + LTR داخلي بدون أطفال كتلية. CODE/KBD/SAMP/VAR مُدرجة هنا
+  // لأن الفقرة المُحتوية يجب أن تأخذ dir=rtl حتى لو بقيت CODE نفسها LTR.
+  const INLINE_FLOW_TAGS = new Set([
+    'SPAN', 'A', 'EM', 'STRONG', 'B', 'I', 'MARK', 'SMALL',
+    'TIME', 'ABBR', 'CITE', 'Q', 'S', 'U', 'SUB', 'SUP',
+    'BDI', 'BDO', 'DFN', 'INS', 'DEL', 'WBR', 'BR',
+    'CODE', 'KBD', 'SAMP', 'VAR'
+  ]);
+
   const GOOGLE_FONTS = new Set([
     'Tajawal', 'Amiri', 'IBM Plex Sans Arabic', 'Vazirmatn'
   ]);
@@ -169,7 +180,10 @@ ${hostPrefix}${rtlSel} {
   font-size: ${scale}em;
   /* محاذاة صحيحة: start تتبع direction (تصير يمينًا للـ RTL) */
   text-align: start !important;
-  unicode-bidi: plaintext !important;
+  /* isolate يحترم dir="rtl" الصريح ويعزل تشغيل BiDi لأجزاء LTR الداخلية.
+     plaintext يتجاهل direction ويُعيد حسابها من المحتوى، مما يُفسد
+     ترتيب الجُمل المختلطة (عربي + <code>English</code>) على مواقع مثل chat.qwen.ai. */
+  unicode-bidi: isolate !important;
   ${smoothFonts ? '-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;' : ''}
 }
 
@@ -288,6 +302,30 @@ ${hostPrefix}${rtlSel} ol {
     return false;
   }
 
+  // يعود true عندما يكون الأطفال المباشرون للعنصر سطر محتوى سطري
+  // (نصوص + عناصر inline مثل SPAN/CODE/A) وفيه حرف عربي واحد على الأقل.
+  // هذا هو نمط "عربي + LTR داخلي" الذي نريد تمييزه RTL حتى لو كان الوسم <div>
+  // عامّا خارج BLOCK_RTL_TAGS. نرفض أي طفل كتلي لأن ذلك يعني أن العنصر حاوية
+  // تخطيط لا سطر نص.
+  function hasMixedInlineRTL(element) {
+    let sawRTL = false;
+    let sawContent = false;
+    for (const child of element.childNodes) {
+      if (child.nodeType === Node.TEXT_NODE) {
+        const text = child.textContent;
+        if (text && text.trim().length > 0) {
+          sawContent = true;
+          if (RTL_REGEX.test(text)) sawRTL = true;
+        }
+      } else if (child.nodeType === Node.ELEMENT_NODE) {
+        if (!INLINE_FLOW_TAGS.has(child.tagName)) return false;
+        sawContent = true;
+        if (RTL_REGEX.test(child.textContent || '')) sawRTL = true;
+      }
+    }
+    return sawRTL && sawContent;
+  }
+
   function shouldProcess(element) {
     if (!element || !element.tagName) return false;
     if (SKIP_TAGS.has(element.tagName)) return false;
@@ -306,11 +344,12 @@ ${hostPrefix}${rtlSel} ol {
       element.dataset.rtlfreeDir = element.getAttribute('dir');
     }
 
-    // === inline styles (أعلى أولوية من CSS الموقع) ===
-    // مطلوب لأن مواقع مثل AI Studio تفرض text-align: left بقواعد CSS يصعب تجاوزها
+    // === inline styles بأولوية !important (أعلى من أي CSS في الموقع) ===
+    // مطلوب لأن مواقع مثل AI Studio و chat.qwen.ai تفرض text-align: left
+    // بقواعد !important يصعب تجاوزها من ورقة أنماط خارجية
     element.setAttribute('dir', 'rtl');
-    element.style.direction = 'rtl';
-    element.style.textAlign = 'right';
+    element.style.setProperty('direction', 'rtl', 'important');
+    element.style.setProperty('text-align', 'right', 'important');
 
     element.setAttribute(DATA_ATTR, 'rtl');
 
@@ -321,20 +360,20 @@ ${hostPrefix}${rtlSel} ol {
       if (parent && (parent.tagName === 'UL' || parent.tagName === 'OL')) {
         if (parent.getAttribute(DATA_ATTR) !== 'rtl-list') {
           parent.setAttribute('dir', 'rtl');
-          parent.style.direction = 'rtl';
-          parent.style.paddingRight = '24px';
-          parent.style.paddingLeft = '0';
-          parent.style.marginRight = '0';
-          parent.style.marginLeft = '0';
+          parent.style.setProperty('direction', 'rtl', 'important');
+          parent.style.setProperty('padding-right', '24px', 'important');
+          parent.style.setProperty('padding-left', '0', 'important');
+          parent.style.setProperty('margin-right', '0', 'important');
+          parent.style.setProperty('margin-left', '0', 'important');
           parent.setAttribute(DATA_ATTR, 'rtl-list');
         }
       }
-      element.style.listStylePosition = 'outside';
+      element.style.setProperty('list-style-position', 'outside', 'important');
     } else if (tag === 'UL' || tag === 'OL') {
-      element.style.paddingRight = '24px';
-      element.style.paddingLeft = '0';
-      element.style.marginRight = '0';
-      element.style.marginLeft = '0';
+      element.style.setProperty('padding-right', '24px', 'important');
+      element.style.setProperty('padding-left', '0', 'important');
+      element.style.setProperty('margin-right', '0', 'important');
+      element.style.setProperty('margin-left', '0', 'important');
     }
   }
 
@@ -391,6 +430,10 @@ ${hostPrefix}${rtlSel} ol {
         applyRTL(root);
       } else if (BLOCK_RTL_TAGS.has(tag) && RTL_REGEX.test(root.textContent || '')) {
         // عناصر كتليّة (عناوين، فقرات، ...) حتى لو كان النص داخل span أو عنصر داخلي
+        applyRTL(root);
+      } else if (hasMixedInlineRTL(root)) {
+        // حاويات عامة (<div>، Custom Elements) تحتضن سطرًا مختلطًا عربي + LTR داخلي
+        // بدون أطفال كتلية — هذا هو نمط فقاعات الردّ في chat.qwen.ai وغيرها
         applyRTL(root);
       } else if (
         // Custom Elements (ms-*, mat-*, ...) التي تحوي نصًا عربيًا

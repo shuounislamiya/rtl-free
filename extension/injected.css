@@ -3,10 +3,9 @@
  * يتم حقن أنماط إضافية ديناميكيًا عبر content.js
  */
 
-/* استخدام unicode-bidi: plaintext كشبكة أمان للنصوص */
-html[data-rtlfree-active="1"] [data-rtlfree="rtl"] {
-  unicode-bidi: plaintext;
-}
+/* unicode-bidi يُضبط ديناميكيًا في content.js (isolate للعناصر ذات dir=rtl،
+   plaintext لحقول الإدخال بوضع dir=auto). لا نفرضه هنا لتجنّب أن يسبق
+   التحميل الديناميكي ويُفسد ترتيب النصوص المختلطة. */
 
 /* انتقال سلس عند تغيير الاتجاه */
 html[data-rtlfree-active="1"] [data-rtlfree="rtl"] {
@@ -28,12 +27,6 @@ html[data-rtlfree-active="1"] [data-rtlfree-input="1"] {
 html[data-rtlfree-active="1"] [data-rtlfree="rtl"] svg,
 html[data-rtlfree-active="1"] [data-rtlfree="rtl"] img {
   direction: ltr;
-}
-
-/* تصحيح الأزرار والعناصر التفاعلية */
-html[data-rtlfree-active="1"] button[data-rtlfree="rtl"],
-html[data-rtlfree-active="1"] a[data-rtlfree="rtl"] {
-  unicode-bidi: plaintext;
 }
 
 /* تصحيح عرض الأرقام العربية مع النصوص */
