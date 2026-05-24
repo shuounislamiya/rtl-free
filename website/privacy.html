@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>سياسة الخصوصية — RTL Free</title>
+  <meta name="description" content="سياسة الخصوصية لإضافة RTL Free: لا نجمع أي بيانات شخصية، ولا نتتبّع تصفّحك، ولا نُرسل أي معلومات إلى أي خادم. كل شيء يحدث محليًا في متصفحك.">
+  <meta name="author" content="شؤون إسلامية (Shuoon Islamiya)">
+  <meta name="theme-color" content="#be123c">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://rtlfree.shuounislamiya.org/privacy.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:site_name" content="RTL Free">
+  <meta property="og:title" content="سياسة الخصوصية — RTL Free">
+  <meta property="og:description" content="سياسة خصوصية إضافة RTL Free — لا تجمع أي بيانات.">
+  <meta property="og:url" content="https://rtlfree.shuounislamiya.org/privacy.html">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ef4444'/%3E%3Cstop offset='100%25' stop-color='%23be123c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='12' fill='url(%23g)'/%3E%3Ctext x='24' y='34' text-anchor='middle' fill='white' font-size='28' font-weight='800' font-family='Arial'%3ER%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --red: #ef4444;
+      --red-dark: #be123c;
+      --red-deeper: #881337;
+      --ink: #1a0a0a;
+      --ink-soft: #3d1a1a;
+      --ink-muted: #6b4444;
+      --cream: #fffaf7;
+      --cream-2: #fef2f2;
+      --white: #ffffff;
+      --green: #22c55e;
+      --font: 'IBM Plex Sans Arabic', 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+      --font-display: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: linear-gradient(180deg, var(--cream-2) 0%, var(--cream) 100%);
+      color: var(--ink);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+    }
+
+    ::selection { background: var(--red); color: white; }
+
+    .top-bar {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 24px 20px 0;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--red-dark);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+    .back-link:hover { background: rgba(190, 18, 60, 0.08); }
+    .back-link svg { width: 18px; height: 18px; }
+
+    .container { padding: 24px 20px 80px; }
+
+    .pp-card {
+      max-width: 820px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid rgba(190, 18, 60, 0.1);
+      border-radius: 24px;
+      padding: 56px 52px;
+      box-shadow: 0 20px 60px rgba(190, 18, 60, 0.08);
+    }
+
+    .pp-header {
+      text-align: center;
+      padding-bottom: 32px;
+      margin-bottom: 32px;
+      border-bottom: 2px solid rgba(190, 18, 60, 0.1);
+    }
+
+    .pp-logo { margin-bottom: 16px; }
+
+    .pp-header h1 {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 6px;
+    }
+
+    .pp-meta {
+      color: var(--ink-muted);
+      font-size: 14px;
+    }
+
+    .pp-highlight {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.06), rgba(190, 18, 60, 0.04));
+      border: 1px solid rgba(190, 18, 60, 0.15);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      font-size: 16px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+    .pp-highlight strong {
+      color: var(--red-dark);
+      font-weight: 800;
+    }
+
+    .pp-h {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--ink);
+      margin: 28px 0 14px;
+      padding-right: 14px;
+      border-right: 4px solid var(--red);
+    }
+
+    .pp-p {
+      font-size: 16px;
+      color: var(--ink-muted);
+      line-height: 1.9;
+      margin-bottom: 12px;
+    }
+
+    .pp-p code, .pp-list code {
+      background: rgba(190, 18, 60, 0.08);
+      color: var(--red-dark);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      direction: ltr;
+      display: inline-block;
+    }
+
+    .pp-list {
+      list-style: none;
+      margin: 12px 0;
+    }
+
+    .pp-list li {
+      padding: 12px 18px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15.5px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+    .pp-list li::before {
+      font-weight: 900;
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pp-list.yes li {
+      background: rgba(34, 197, 94, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+    .pp-list.yes li::before {
+      content: '\2713';
+      color: var(--green);
+    }
+    .pp-list.no li {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+    }
+    .pp-list.no li::before {
+      content: '\2715';
+      color: var(--red);
+    }
+    .pp-list strong {
+      color: var(--red-dark);
+      font-weight: 700;
+    }
+
+    .pp-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(190, 18, 60, 0.1);
+      text-align: center;
+      font-size: 14px;
+      color: var(--ink-muted);
+    }
+    .pp-footer p { margin-bottom: 4px; }
+    .pp-footer strong { color: var(--red-dark); }
+
+    @media (max-width: 640px) {
+      .pp-card { padding: 36px 24px; }
+      .pp-header h1 { font-size: 26px; }
+      .pp-h { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="/" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </svg>
+      العودة إلى الصفحة الرئيسية
+    </a>
+  </div>
+
+  <div class="container">
+    <div class="pp-card">
+
+      <div class="pp-header">
+        <div class="pp-logo">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <defs>
+              <linearGradient id="ppG" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ef4444"/>
+                <stop offset="100%" stop-color="#be123c"/>
+              </linearGradient>
+            </defs>
+            <rect width="48" height="48" rx="12" fill="url(#ppG)"/>
+            <text x="24" y="34" text-anchor="middle" fill="white" font-size="28" font-weight="800" font-family="Arial, sans-serif">R</text>
+          </svg>
+        </div>
+        <h1>سياسة الخصوصية الكاملة</h1>
+        <p class="pp-meta">إضافة RTL Free — الإصدار 1.1.6</p>
+      </div>
+
+      <div class="pp-highlight">
+        <strong>باختصار:</strong> الإضافة لا تجمع أي بيانات شخصية، ولا تُرسل أي معلومات إلى أي خادم، ولا تتتبّع تصفّحك. كل شيء يحدث محليًا داخل متصفحك فقط.
+      </div>
+
+      <h2 class="pp-h">1. البيانات التي لا نجمعها</h2>
+      <ul class="pp-list no">
+        <li>لا نجمع اسمك أو بريدك الإلكتروني أو أي معلومات شخصية.</li>
+        <li>لا نُسجّل تاريخ تصفّحك أو المواقع التي تزورها.</li>
+        <li>لا نقرأ محتوى صفحاتك أو نصوصها أو نُرسلها إلى أي مكان.</li>
+        <li>لا نستخدم أي أدوات تحليلات (Google Analytics أو غيرها).</li>
+        <li>لا نعرض أي إعلانات.</li>
+        <li>لا نشارك أو نبيع أي بيانات — ببساطة لأنها ليست لدينا.</li>
+      </ul>
+
+      <h2 class="pp-h">2. ما تحفظه الإضافة محليًا على جهازك فقط</h2>
+      <p class="pp-p">تستخدم الإضافة <code>chrome.storage.sync</code> لحفظ تفضيلاتك على جهازك (وتزامنها عبر حسابك في Chrome إن فعّلت المزامنة):</p>
+      <ul class="pp-list yes">
+        <li>قائمة المواقع التي فعّلت الإضافة عليها (نطاقات فقط).</li>
+        <li>الخط المختار وحجمه وتباعد أسطره وسُمكه.</li>
+        <li>خيار إخفاء التشكيل ونوع الأرقام.</li>
+        <li>اسم الخط المخصَّص إن أدخلتَ واحدًا.</li>
+      </ul>
+      <p class="pp-p">هذه الإعدادات لا تخرج من متصفحك أبدًا إلى أي خادم خارجي تابع لنا — لا نمتلك أي خادم أصلًا.</p>
+
+      <h2 class="pp-h">3. الاتصالات الخارجية الوحيدة</h2>
+      <p class="pp-p">هناك اتصال خارجي واحد فقط، وهو <strong>اختياري بالكامل</strong>:</p>
+      <ul class="pp-list yes">
+        <li><strong>Google Fonts</strong> — فقط عند اختيارك أحد الخطوط المنتقاة (Tajawal، Amiri، IBM Plex Sans Arabic، Vazirmatn). يتم تحميل ملف الخط من <code>fonts.googleapis.com</code>.</li>
+      </ul>
+      <p class="pp-p">إذا اخترت «خط الموقع الافتراضي» (وهو الخيار الافتراضي) أو خطًا مخصّصًا من نظامك، فلن يُرسَل أي طلب إلى Google.</p>
+
+      <h2 class="pp-h">4. الصلاحيات المطلوبة ولماذا</h2>
+      <ul class="pp-list yes">
+        <li><strong>storage:</strong> لحفظ تفضيلاتك محليًا.</li>
+        <li><strong>activeTab:</strong> لمعرفة نطاق الصفحة الحالية حتى يعمل زرّ التفعيل.</li>
+        <li><strong>scripting:</strong> لتسجيل سكربت دعم Shadow DOM ديناميكيًا للمواقع التي فعّلتها فقط، ولعرض إشعار صغير عند تغيير الخط من قائمة النقر الأيمن.</li>
+        <li><strong>contextMenus:</strong> لإضافة خيارات في قائمة النقر الأيمن.</li>
+        <li><strong>host_permissions</strong> <code>&lt;all_urls&gt;</code>: لتتمكن الإضافة من العمل على أي موقع تفعّلها عليه. الإضافة <strong>معطَّلة افتراضيًا</strong> ولا تعمل إلا على المواقع التي تختار تفعيلها بنفسك.</li>
+      </ul>
+
+      <h2 class="pp-h">5. حقوقك</h2>
+      <ul class="pp-list yes">
+        <li>يمكنك حذف جميع إعداداتك من صفحة «الإعدادات المتقدمة» ← «النسخ الاحتياطي» ← «إعادة التعيين».</li>
+        <li>يمكنك إزالة الإضافة كاملة من <code>chrome://extensions</code> وستُحذف كل البيانات المحلية تلقائيًا.</li>
+        <li>يمكنك تصدير إعداداتك كملف JSON في أي وقت.</li>
+      </ul>
+
+      <h2 class="pp-h">6. الشفافية الكاملة</h2>
+      <p class="pp-p">الكود المصدري للإضافة متاح للمراجعة على <a href="https://github.com/shuounislamiya/rtl-free" style="color:var(--red-dark);font-weight:700;">GitHub</a>. يمكنك قراءة كل سطر ومعرفة ما تفعله الإضافة بدقة — لا توجد ملفات مخفية أو مُشفَّرة.</p>
+
+      <h2 class="pp-h">7. تغييرات على هذه السياسة</h2>
+      <p class="pp-p">إذا حدث أي تغيير في طريقة تعامل الإضافة مع البيانات، سنُحدِّث هذه الصفحة ونُشعر المستخدمين عبر تحديث الإضافة في Chrome Web Store.</p>
+
+      <h2 class="pp-h">8. التواصل</h2>
+      <p class="pp-p">لأي استفسار يتعلق بالخصوصية أو الإضافة، يمكنكم التواصل عبر موقع <strong>شؤون إسلامية</strong>.</p>
+
+      <div class="pp-footer">
+        <p>تصميم وإصدار: <strong>شؤون إسلامية</strong> — خدمةً للمحتوى العربي.</p>
+        <p>آخر تحديث: مايو 2026 · الإصدار 1.1.6</p>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
