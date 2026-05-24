@@ -4,6 +4,7 @@
  */
 
 const STORAGE_KEY = 'rtlfree_settings';
+const SHADOW_PATCH_ID = 'rtlfree-shadow-patch';
 
 const DEFAULTS = {
   autoDetect: true,
@@ -42,6 +43,51 @@ async function getActiveHost() {
   try {
     return new URL(tab.url).hostname.toLowerCase();
   } catch { return null; }
+}
+
+// ============================================================
+// تسجيل ديناميكي لسكربت تحويل Shadow DOM
+// نحقن force-open-shadow.js فقط على المواقع التي فعّل المستخدم RTL عليها
+// لتجنّب بصمة anti-bot على بقية المواقع (كلاودفلير، Akamai، …)
+// ============================================================
+
+function hostToMatchPatterns(host) {
+  const clean = String(host || '')
+    .trim().toLowerCase()
+    .replace(/^\*\./, '')
+    .replace(/^https?:\/\//, '')
+    .replace(/\/.*$/, '');
+  // نقبل النطاقات الصالحة فقط — نمنع رموز مسارات أو محارف غريبة
+  if (!clean || !/^[a-z0-9.\-]+\.[a-z]{2,}$/.test(clean)) return [];
+  return [`*://${clean}/*`, `*://*.${clean}/*`];
+}
+
+async function syncShadowPatch() {
+  const settings = await getSettings();
+  const sites = settings.enabledSites || [];
+
+  // أزِل أي تسجيل سابق (تجاهل الخطأ إن لم يكن مسجَّلًا)
+  try {
+    await chrome.scripting.unregisterContentScripts({ ids: [SHADOW_PATCH_ID] });
+  } catch (e) { /* غير مسجَّل — طبيعي */ }
+
+  const matches = sites.flatMap(hostToMatchPatterns);
+  if (matches.length === 0) return;
+
+  try {
+    await chrome.scripting.registerContentScripts([{
+      id: SHADOW_PATCH_ID,
+      js: ['force-open-shadow.js'],
+      matches,
+      runAt: 'document_start',
+      allFrames: true,
+      matchOriginAsFallback: true,
+      world: 'MAIN',
+      persistAcrossSessions: true
+    }]);
+  } catch (e) {
+    console.warn('RTL Free: failed to register shadow patch', e);
+  }
 }
 
 // ============================================================
@@ -99,10 +145,12 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     await saveSettings(DEFAULTS);
     chrome.tabs.create({ url: chrome.runtime.getURL('options.html?welcome=1') });
   }
+  await syncShadowPatch();
 });
 
-chrome.runtime.onStartup.addListener(() => {
+chrome.runtime.onStartup.addListener(async () => {
   createContextMenus();
+  await syncShadowPatch();
 });
 
 // ============================================================
@@ -266,7 +314,15 @@ chrome.tabs.onUpdated.addListener((tabId, info) => {
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === 'sync' && changes[STORAGE_KEY]) updateBadge();
+  if (area !== 'sync' || !changes[STORAGE_KEY]) return;
+  updateBadge();
+
+  // أعد مزامنة سكربت Shadow إذا تغيّرت قائمة المواقع المُفعَّلة
+  const before = changes[STORAGE_KEY].oldValue?.enabledSites || [];
+  const after = changes[STORAGE_KEY].newValue?.enabledSites || [];
+  if (JSON.stringify(before) !== JSON.stringify(after)) {
+    syncShadowPatch();
+  }
 });
 
 // ============================================================

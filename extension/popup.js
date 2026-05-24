@@ -373,20 +373,26 @@ function highlightActiveChip() {
 
 function renderAll() {
   renderState();
-  $('fontFamily').value = settings.fontFamily;
+  // مساعدات آمنة: تتجاهل العنصر بصمت إن لم يكن موجودًا في popup.html
+  // (الـ popup يعرض مجموعة فرعية من الإعدادات؛ الباقي في options.html)
+  const setVal = (id, v) => { const el = $(id); if (el) el.value = v; };
+  const setText = (id, v) => { const el = $(id); if (el) el.textContent = v; };
+  const setChecked = (id, v) => { const el = $(id); if (el) el.checked = v; };
+
+  setVal('fontFamily', settings.fontFamily);
   if ($('customFontName')) $('customFontName').value = settings.customFontName || '';
   toggleCustomFont();
-  $('fontSize').value = settings.fontSize;
-  $('fontSizeVal').textContent = settings.fontSize + '%';
-  $('lineHeight').value = settings.lineHeight;
-  $('lineHeightVal').textContent = settings.lineHeight.toFixed(1);
-  $('letterSpacing').value = settings.letterSpacing;
-  $('letterSpacingVal').textContent = settings.letterSpacing.toFixed(2);
-  $('fontWeight').value = settings.fontWeight;
-  $('fontWeightVal').textContent = settings.fontWeight;
-  $('forceRTL').checked = settings.forceRTL;
-  $('hideTashkeel').checked = settings.hideTashkeel;
-  $('fixInputs').checked = settings.fixInputs;
+  setVal('fontSize', settings.fontSize);
+  setText('fontSizeVal', settings.fontSize + '%');
+  setVal('lineHeight', settings.lineHeight);
+  setText('lineHeightVal', settings.lineHeight.toFixed(1));
+  setVal('letterSpacing', settings.letterSpacing);
+  setText('letterSpacingVal', settings.letterSpacing.toFixed(2));
+  setVal('fontWeight', settings.fontWeight);
+  setText('fontWeightVal', settings.fontWeight);
+  setChecked('forceRTL', settings.forceRTL);
+  setChecked('hideTashkeel', settings.hideTashkeel);
+  setChecked('fixInputs', settings.fixInputs);
   const numRadio = document.querySelector(`input[name="numerals"][value="${settings.convertNumerals}"]`);
   if (numRadio) numRadio.checked = true;
 
