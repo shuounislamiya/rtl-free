@@ -374,43 +374,6 @@
 
     .btn svg { width: 20px; height: 20px; }
 
-    /* شارة "قيد المراجعة" على الأزرار */
-    .btn-pending {
-      position: relative;
-    }
-    .review-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 10px;
-      background: rgba(245, 158, 11, 0.18);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      border-radius: 999px;
-      font-size: 11.5px;
-      font-weight: 700;
-      margin-right: 4px;
-      white-space: nowrap;
-    }
-    .review-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: #fbbf24;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #fbbf24;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    .btn-pending.btn-primary .review-badge {
-      background: rgba(190, 18, 60, 0.12);
-      color: var(--red-dark);
-      border-color: rgba(190, 18, 60, 0.28);
-    }
-    .btn-pending.btn-primary .review-badge::before {
-      background: var(--red-dark);
-      box-shadow: 0 0 8px rgba(190, 18, 60, 0.6);
-    }
-
     /* ملاحظة أسفل الأزرار */
     .hero-ctas-note {
       display: inline-flex;
@@ -2069,18 +2032,17 @@
           مع خطوط عربية منتقاة، وكاشف ذكي لخطوط نظامك، وتحكّم دقيق في كل التفاصيل.
         </p>
         <div class="hero-ctas">
-          <a href="https://github.com/shuounislamiya/rtl-free/raw/main/website/download/rtl-free-v1.1.6.zip" class="btn btn-primary" download>
+          <a href="https://chromewebstore.google.com/detail/jfkjlncpkhahfdapjgfgcbkbfbcmlaam" class="btn btn-primary" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            ثبّت من Chrome Web Store
+          </a>
+          <a href="https://github.com/shuounislamiya/rtl-free/raw/main/website/download/rtl-free-v1.1.6.zip" class="btn btn-ghost" download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
               <polyline points="7 10 12 15 17 10"/>
               <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
-            حمِّل الإضافة v1.1 (46 KB)
-          </a>
-          <a href="https://chromewebstore.google.com/detail/jfkjlncpkhahfdapjgfgcbkbfbcmlaam" class="btn btn-ghost btn-pending" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-            Chrome Web Store
-            <span class="review-badge">قيد المراجعة</span>
+            تحميل مباشر (v1.1.6)
           </a>
         </div>
         <div class="hero-ctas-note">
@@ -2089,7 +2051,7 @@
             <line x1="12" y1="8" x2="12" y2="12"/>
             <line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
-          تحتاج شرح التثبيت؟ <a href="#install" style="color:#fbbf24; text-decoration:underline; margin-right:6px;">اقرأ الدليل ↓</a>
+          متاحة الآن في متجر Chrome — التثبيت بنقرة واحدة. <a href="#install" style="color:#fbbf24; text-decoration:underline; margin-right:6px;">أو ثبّتها يدويًا ↓</a>
         </div>
         <div class="hero-credit">
           تصميم: <strong>شؤون إسلامية</strong>
@@ -2290,7 +2252,7 @@
     <div class="container text-center">
       <span class="eyebrow reveal">التثبيت والاستخدام</span>
       <h2 class="section-title reveal reveal-delay-1">ثبّت RTL Free في <span class="highlight">دقيقتين</span></h2>
-      <p class="section-sub reveal reveal-delay-2">حمّلها وثبّتها يدويًا — Chrome Web Store قيد المراجعة وسيكون التثبيت بنقرة واحدة قريبًا.</p>
+      <p class="section-sub reveal reveal-delay-2">الطريقة الأسهل: <a href="https://chromewebstore.google.com/detail/jfkjlncpkhahfdapjgfgcbkbfbcmlaam" target="_blank" rel="noopener" style="color:var(--red-dark); font-weight:700; text-decoration:underline;">ثبّت من Chrome Web Store بنقرة واحدة</a>. أو حمّلها يدويًا أدناه لمتصفحات Chromium الأخرى.</p>
 
       <!-- زر التحميل البارز -->
       <div class="install-download-block reveal">
@@ -2742,18 +2704,17 @@
       <h2>جاهز لتجربة عربية <br>بلا عيوب؟</h2>
       <p>مجاني بالكامل · مفتوح المصدر · يحترم خصوصيتك</p>
       <div class="hero-ctas" style="justify-content: center;">
-        <a href="https://github.com/shuounislamiya/rtl-free/raw/main/website/download/rtl-free-v1.1.6.zip" class="btn btn-primary" download>
+        <a href="https://chromewebstore.google.com/detail/jfkjlncpkhahfdapjgfgcbkbfbcmlaam" class="btn btn-primary" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
+          ثبّت من Chrome Web Store
+        </a>
+        <a href="https://github.com/shuounislamiya/rtl-free/raw/main/website/download/rtl-free-v1.1.6.zip" class="btn btn-ghost" download>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
-          حمِّل الإضافة v1.1
-        </a>
-        <a href="https://chromewebstore.google.com/detail/jfkjlncpkhahfdapjgfgcbkbfbcmlaam" class="btn btn-ghost btn-pending" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
-          Chrome Web Store
-          <span class="review-badge">قيد المراجعة</span>
+          تحميل مباشر (v1.1.6)
         </a>
       </div>
     </div>
