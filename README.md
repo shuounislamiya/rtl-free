@@ -52,22 +52,28 @@
 
 ---
 
-## التثبيت (التحميل المحلي)
+## التثبيت
 
-### Chrome / Edge / Brave / Opera
+### Chrome Web Store (موصى به)
+
+[ثبّت RTL Free من متجر كروم](https://chromewebstore.google.com/detail/jfkjlncpkhahfdapjgfgcbkbfbcmlaam) — التثبيت بنقرة واحدة، مع تحديثات تلقائية.
+
+### Chrome / Edge / Brave / Opera (تثبيت يدوي)
 
 1. افتح رابط الإضافات:
    - Chrome: `chrome://extensions`
    - Edge: `edge://extensions`
 2. فعّل **وضع المطوّر** (Developer Mode)
 3. اضغط **تحميل غير مُحزّم** (Load unpacked)
-4. اختر مجلد **`extension/`** داخل هذا المستودع (وليس الجذر)
+4. اختر مجلد **`chrome/`** داخل هذا المستودع (وليس الجذر)
 
-### Firefox
+### Firefox (مطوّرون فقط حتى يُكتمل اعتماد AMO)
 
 1. افتح `about:debugging#/runtime/this-firefox`
-2. اضغط **تحميل إضافة مؤقتة**
-3. اختر ملف `extension/manifest.json`
+2. اضغط **تحميل إضافة مؤقتة** (Load Temporary Add-on)
+3. اختر ملف `firefox/manifest.json`
+
+> ملاحظة: التثبيت المؤقت يزول عند إغلاق Firefox. للتثبيت الدائم، انتظر اعتماد الإضافة على addons.mozilla.org.
 
 ---
 
@@ -84,19 +90,21 @@
 
 ```
 RTL/
-├── extension/             # ملفات الإضافة — حمّل هذا المجلد في كروم
-│   ├── manifest.json      # تعريف Manifest V3
+├── chrome/                # نسخة Chrome / Edge / Brave / Opera (Manifest V3 — service worker)
+├── firefox/               # نسخة Firefox (Manifest V3 — background scripts، gecko id)
+│   └── manifest.json      # يختلف عن Chrome فقط في background وbrowser_specific_settings
+│
+│   كلا المجلدَين يحويان نفس الكود:
 │   ├── content.js         # محرك الكشف والتطبيق
+│   ├── force-open-shadow.js # دعم Closed Shadow DOM (يُسجَّل ديناميكيًا)
 │   ├── injected.css       # أنماط أساسية مضافة
-│   ├── background.js      # Service Worker (القائمة السياقية والشارة)
+│   ├── background.js      # القائمة السياقية والشارة والاختصارات
 │   ├── popup.html/css/js  # نافذة التحكم السريعة
 │   ├── options.html/css/js # صفحة الإعدادات المتقدمة
 │   └── icons/             # أيقونات حمراء بحرف R
 │
-├── website/               # صفحة الموقع (index.html) وملف التحميل
-├── privacy.html           # سياسة الخصوصية
-├── install.html           # دليل التثبيت اليدوي
-├── store-assets/          # لقطات متجر Chrome
+├── website/               # موقع المشروع (index.html + privacy.html + download/)
+├── store-assets/          # لقطات وصور متجر Chrome
 ├── build-icons.py         # أداة توليد الأيقونات
 ├── LICENSE                # رخصة MIT
 └── README.md              # هذا الملف

@@ -1,0 +1,97 @@
+{
+  "manifest_version": 3,
+  "name": "RTL Free — إصلاح الاتجاه العربي الاحترافي",
+  "short_name": "RTL Free",
+  "version": "1.1.6",
+  "description": "إصلاح اتجاه النصوص العربية تلقائيًا على أي موقع، بزر واحد، مع خطوط منتقاة وتحكّم كامل. تصميم: شؤون إسلامية.",
+  "author": "شؤون إسلامية",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "rtlfree@shuounislamiya.org",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "contextMenus"
+  ],
+
+  "commands": {
+    "toggle-site": {
+      "suggested_key": {
+        "default": "Alt+Shift+R",
+        "mac": "Alt+Shift+R"
+      },
+      "description": "تفعيل/تعطيل RTL Free على الموقع الحالي"
+    },
+    "cycle-font": {
+      "suggested_key": {
+        "default": "Alt+Shift+F",
+        "mac": "Alt+Shift+F"
+      },
+      "description": "تبديل الخط العربي"
+    },
+    "increase-size": {
+      "description": "تكبير الخط"
+    },
+    "decrease-size": {
+      "description": "تصغير الخط"
+    }
+  },
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "RTL Free — إصلاح الاتجاه العربي",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["injected.css"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["injected.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

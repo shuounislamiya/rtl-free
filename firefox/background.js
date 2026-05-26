@@ -1,0 +1,340 @@
+/**
+ * RTL Free — Service Worker
+ * إدارة القائمة السياقية والإشعارات والشارة
+ */
+
+const STORAGE_KEY = 'rtlfree_settings';
+const SHADOW_PATCH_ID = 'rtlfree-shadow-patch';
+
+const DEFAULTS = {
+  autoDetect: true,
+  forceRTL: false,
+  fontFamily: 'site',
+  customFontName: '',
+  fontSize: 100,
+  lineHeight: 1.8,
+  letterSpacing: 0,
+  fontWeight: 400,
+  convertNumerals: 'none',
+  hideTashkeel: false,
+  fixInputs: true,
+  fixCode: false,
+  smoothFonts: true,
+  enabledSites: [],
+  siteProfiles: {}
+};
+
+const FONT_CYCLE = [
+  'system-ui', 'Tajawal', 'Amiri', 'IBM Plex Sans Arabic', 'Vazirmatn'
+];
+
+async function getSettings() {
+  const data = await chrome.storage.sync.get(STORAGE_KEY);
+  return { ...DEFAULTS, ...(data[STORAGE_KEY] || {}) };
+}
+
+async function saveSettings(settings) {
+  await chrome.storage.sync.set({ [STORAGE_KEY]: settings });
+}
+
+async function getActiveHost() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab?.url) return null;
+  try {
+    return new URL(tab.url).hostname.toLowerCase();
+  } catch { return null; }
+}
+
+// ============================================================
+// تسجيل ديناميكي لسكربت تحويل Shadow DOM
+// نحقن force-open-shadow.js فقط على المواقع التي فعّل المستخدم RTL عليها
+// لتجنّب بصمة anti-bot على بقية المواقع (كلاودفلير، Akamai، …)
+// ============================================================
+
+function hostToMatchPatterns(host) {
+  const clean = String(host || '')
+    .trim().toLowerCase()
+    .replace(/^\*\./, '')
+    .replace(/^https?:\/\//, '')
+    .replace(/\/.*$/, '');
+  // نقبل النطاقات الصالحة فقط — نمنع رموز مسارات أو محارف غريبة
+  if (!clean || !/^[a-z0-9.\-]+\.[a-z]{2,}$/.test(clean)) return [];
+  return [`*://${clean}/*`, `*://*.${clean}/*`];
+}
+
+async function syncShadowPatch() {
+  const settings = await getSettings();
+  const sites = settings.enabledSites || [];
+
+  // أزِل أي تسجيل سابق (تجاهل الخطأ إن لم يكن مسجَّلًا)
+  try {
+    await chrome.scripting.unregisterContentScripts({ ids: [SHADOW_PATCH_ID] });
+  } catch (e) { /* غير مسجَّل — طبيعي */ }
+
+  const matches = sites.flatMap(hostToMatchPatterns);
+  if (matches.length === 0) return;
+
+  try {
+    await chrome.scripting.registerContentScripts([{
+      id: SHADOW_PATCH_ID,
+      js: ['force-open-shadow.js'],
+      matches,
+      runAt: 'document_start',
+      allFrames: true,
+      matchOriginAsFallback: true,
+      world: 'MAIN',
+      persistAcrossSessions: true
+    }]);
+  } catch (e) {
+    console.warn('RTL Free: failed to register shadow patch', e);
+  }
+}
+
+// ============================================================
+// إنشاء القائمة السياقية
+// ============================================================
+
+function createContextMenus() {
+  chrome.contextMenus.removeAll(() => {
+    chrome.contextMenus.create({
+      id: 'rtlfree-toggle-site',
+      title: 'تفعيل/تعطيل RTL Free على هذا الموقع',
+      contexts: ['page', 'selection']
+    });
+    chrome.contextMenus.create({
+      id: 'rtlfree-cycle-font',
+      title: 'تبديل الخط العربي',
+      contexts: ['page']
+    });
+    chrome.contextMenus.create({
+      id: 'rtlfree-separator',
+      type: 'separator',
+      contexts: ['page']
+    });
+    chrome.contextMenus.create({
+      id: 'rtlfree-increase',
+      title: 'تكبير الخط',
+      contexts: ['page']
+    });
+    chrome.contextMenus.create({
+      id: 'rtlfree-decrease',
+      title: 'تصغير الخط',
+      contexts: ['page']
+    });
+    chrome.contextMenus.create({
+      id: 'rtlfree-reset-size',
+      title: 'إعادة الحجم الافتراضي',
+      contexts: ['page']
+    });
+    chrome.contextMenus.create({
+      id: 'rtlfree-separator2',
+      type: 'separator',
+      contexts: ['page']
+    });
+    chrome.contextMenus.create({
+      id: 'rtlfree-options',
+      title: 'الإعدادات المتقدمة',
+      contexts: ['page']
+    });
+  });
+}
+
+chrome.runtime.onInstalled.addListener(async (details) => {
+  createContextMenus();
+  if (details.reason === 'install') {
+    await saveSettings(DEFAULTS);
+    chrome.tabs.create({ url: chrome.runtime.getURL('options.html?welcome=1') });
+  }
+  await syncShadowPatch();
+});
+
+chrome.runtime.onStartup.addListener(async () => {
+  createContextMenus();
+  await syncShadowPatch();
+});
+
+// ============================================================
+// معالج القائمة السياقية
+// ============================================================
+
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  const settings = await getSettings();
+
+  switch (info.menuItemId) {
+    case 'rtlfree-toggle-site':
+      await toggleSite();
+      break;
+    case 'rtlfree-cycle-font':
+      await cycleFont();
+      break;
+    case 'rtlfree-increase':
+      await changeSize(10);
+      break;
+    case 'rtlfree-decrease':
+      await changeSize(-10);
+      break;
+    case 'rtlfree-reset-size':
+      await setSize(100);
+      break;
+    case 'rtlfree-options':
+      chrome.runtime.openOptionsPage();
+      break;
+  }
+});
+
+// ============================================================
+// اختصارات الكيبورد
+// يمكن للمستخدم تعديلها من chrome://extensions/shortcuts
+// ============================================================
+
+chrome.commands.onCommand.addListener(async (command) => {
+  const host = await getActiveHost();
+  if (!host) return;
+
+  switch (command) {
+    case 'toggle-site': {
+      await toggleSite();
+      const settings = await getSettings();
+      const nowActive = (settings.enabledSites || []).some(d => host === d || host.endsWith('.' + d));
+      await showToast(nowActive ? `RTL Free مُفعَّل على ${host}` : `RTL Free مُعطَّل على ${host}`);
+      break;
+    }
+    case 'cycle-font':
+      await cycleFont();
+      break;
+    case 'increase-size':
+      await changeSize(10);
+      break;
+    case 'decrease-size':
+      await changeSize(-10);
+      break;
+  }
+});
+
+// ============================================================
+// الإجراءات
+// ============================================================
+
+async function toggleSite() {
+  const host = await getActiveHost();
+  if (!host) return;
+  const settings = await getSettings();
+  const enabled = new Set(settings.enabledSites || []);
+  if (enabled.has(host)) enabled.delete(host);
+  else enabled.add(host);
+  await saveSettings({ ...settings, enabledSites: [...enabled] });
+  await updateBadge();
+}
+
+async function cycleFont() {
+  const settings = await getSettings();
+  const idx = FONT_CYCLE.indexOf(settings.fontFamily);
+  const next = FONT_CYCLE[(idx + 1) % FONT_CYCLE.length];
+  await saveSettings({ ...settings, fontFamily: next });
+  await showToast(`الخط: ${next}`);
+}
+
+async function changeSize(delta) {
+  const settings = await getSettings();
+  const size = Math.max(60, Math.min(200, settings.fontSize + delta));
+  await saveSettings({ ...settings, fontSize: size });
+  await showToast(`الحجم: ${size}%`);
+}
+
+async function setSize(size) {
+  const settings = await getSettings();
+  await saveSettings({ ...settings, fontSize: size });
+  await showToast(`الحجم: ${size}%`);
+}
+
+async function toggleForceRTL() {
+  const settings = await getSettings();
+  const forceRTL = !settings.forceRTL;
+  await saveSettings({ ...settings, forceRTL });
+  await showToast(forceRTL ? 'تم فرض RTL' : 'تم إلغاء فرض RTL');
+}
+
+async function showToast(text) {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab?.id) return;
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: (msg) => {
+        const t = document.createElement('div');
+        t.textContent = msg;
+        t.style.cssText = `
+          position:fixed;top:20px;left:50%;transform:translateX(-50%);
+          background:#1e293b;color:#fff;padding:12px 20px;
+          border-radius:12px;font-size:14px;font-family:system-ui;
+          z-index:2147483647;box-shadow:0 10px 40px rgba(0,0,0,.3);
+          direction:rtl;opacity:0;transition:opacity .2s;
+          border:1px solid rgba(255,255,255,.1);
+        `;
+        document.documentElement.appendChild(t);
+        requestAnimationFrame(() => t.style.opacity = '1');
+        setTimeout(() => {
+          t.style.opacity = '0';
+          setTimeout(() => t.remove(), 250);
+        }, 1500);
+      },
+      args: [text]
+    });
+  } catch (e) { /* بعض الصفحات لا تسمح */ }
+}
+
+// ============================================================
+// شارة الأيقونة
+// ============================================================
+
+async function updateBadge(tabId) {
+  const settings = await getSettings();
+  const tabs = tabId ? [{ id: tabId, url: (await chrome.tabs.get(tabId)).url }] : await chrome.tabs.query({});
+
+  for (const tab of tabs) {
+    if (!tab.url || !tab.id) continue;
+    let host;
+    try { host = new URL(tab.url).hostname.toLowerCase(); } catch { continue; }
+
+    const active = (settings.enabledSites || []).some(d => host === d || host.endsWith('.' + d));
+
+    const badge = active ? 'ON' : '';
+    const color = active ? '#22c55e' : '#ef4444';
+
+    try {
+      await chrome.action.setBadgeText({ tabId: tab.id, text: badge });
+      await chrome.action.setBadgeBackgroundColor({ tabId: tab.id, color });
+    } catch { /* تجاهل */ }
+  }
+}
+
+chrome.tabs.onActivated.addListener(({ tabId }) => updateBadge(tabId));
+chrome.tabs.onUpdated.addListener((tabId, info) => {
+  if (info.status === 'complete') updateBadge(tabId);
+});
+
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area !== 'sync' || !changes[STORAGE_KEY]) return;
+  updateBadge();
+
+  // أعد مزامنة سكربت Shadow إذا تغيّرت قائمة المواقع المُفعَّلة
+  const before = changes[STORAGE_KEY].oldValue?.enabledSites || [];
+  const after = changes[STORAGE_KEY].newValue?.enabledSites || [];
+  if (JSON.stringify(before) !== JSON.stringify(after)) {
+    syncShadowPatch();
+  }
+});
+
+// ============================================================
+// الرسائل من الصفحات
+// ============================================================
+
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (!msg?.type) return;
+  if (msg.type === 'rtlfree:open-options') {
+    chrome.runtime.openOptionsPage();
+    sendResponse({ ok: true });
+  } else if (msg.type === 'rtlfree:get-defaults') {
+    sendResponse({ defaults: DEFAULTS });
+  }
+});
